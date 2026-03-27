@@ -94,6 +94,8 @@
       .ring-filter-btn.active { color: #974235; border-color: #974235; }
       .ring-item { transition: opacity 0.3s; }
       .ring-item.hidden { display: none; }
+      .price-chip { transition: all 0.2s; border: 1px solid #dbc1bc; }
+      .price-chip.active { background: #974235; color: #fff; border-color: #974235; }
     </style>
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-champagne-gold/30">
@@ -287,17 +289,26 @@
   <!-- Product Grid -->
   <div class="px-6 md:px-16 py-10 max-w-7xl mx-auto">
     <!-- Count + Sort bar -->
-    <div class="flex justify-between items-center mb-8">
+    <div class="flex justify-between items-center mb-5">
       <p class="text-xs text-on-surface/40 font-label tracking-widest uppercase" id="ring-count">Hiển thị 8 sản phẩm</p>
       <div class="flex items-center gap-2 text-xs font-label tracking-widest uppercase text-on-surface/50">
         <span class="material-symbols-outlined text-sm">sort</span> Phổ biến nhất
       </div>
     </div>
+    <!-- Price Filter Chips -->
+    <div class="flex flex-wrap gap-2 mb-8 items-center">
+      <span class="text-[0.6rem] font-bold uppercase tracking-widest text-on-surface/40 mr-1">Giá:</span>
+      <button class="price-chip active text-[0.6875rem] font-semibold px-4 py-1.5 rounded-full" data-min="0" data-max="99999999">Tất cả</button>
+      <button class="price-chip text-[0.6875rem] font-semibold px-4 py-1.5 rounded-full text-on-surface/60 hover:border-primary hover:text-primary" data-min="0" data-max="1499999">Dưới 1.5tr</button>
+      <button class="price-chip text-[0.6875rem] font-semibold px-4 py-1.5 rounded-full text-on-surface/60 hover:border-primary hover:text-primary" data-min="1500000" data-max="1999999">1.5 – 2tr</button>
+      <button class="price-chip text-[0.6875rem] font-semibold px-4 py-1.5 rounded-full text-on-surface/60 hover:border-primary hover:text-primary" data-min="2000000" data-max="2999999">2 – 3tr</button>
+      <button class="price-chip text-[0.6875rem] font-semibold px-4 py-1.5 rounded-full text-on-surface/60 hover:border-primary hover:text-primary" data-min="3000000" data-max="99999999">Trên 3tr</button>
+    </div>
 
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10" id="ring-grid">
 
       <!-- 1. Nhẫn Hoa -->
-      <div class="ring-item group cursor-pointer" data-category="halo">
+      <div class="ring-item group cursor-pointer" data-category="halo" data-price="1799000">
         <div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
           <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-nh-03.png" alt="Nhẫn Hoa Moissanite Bạc S925"/>
           <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
@@ -311,7 +322,7 @@
       </div>
 
       <!-- 2. Nhẫn Oval -->
-      <div class="ring-item group cursor-pointer" data-category="solitaire">
+      <div class="ring-item group cursor-pointer" data-category="solitaire" data-price="1799000">
         <div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
           <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-nh-01.png" alt="Nhẫn Oval Moissanite Bạc S925"/>
           <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
@@ -324,7 +335,7 @@
       </div>
 
       <!-- 3. Nhẫn Cỏ May -->
-      <div class="ring-item group cursor-pointer" data-category="cluster">
+      <div class="ring-item group cursor-pointer" data-category="cluster" data-price="1499000">
         <div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
           <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-nh-02.png" alt="Nhẫn Cỏ May Moissanite Bạc S925"/>
           <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
@@ -337,7 +348,7 @@
       </div>
 
       <!-- 4. Nhẫn Round Halo -->
-      <div class="ring-item group cursor-pointer" data-category="halo">
+      <div class="ring-item group cursor-pointer" data-category="halo" data-price="1799000">
         <div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
           <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-nh-04.png" alt="Nhẫn Round Halo Moissanite Bạc S925"/>
           <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
@@ -350,7 +361,7 @@
       </div>
 
       <!-- 5. Nhẫn Princess Solitaire -->
-      <div class="ring-item group cursor-pointer" data-category="solitaire">
+      <div class="ring-item group cursor-pointer" data-category="solitaire" data-price="2199000">
         <div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
           <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-nh-04.png" alt="Nhẫn Princess Solitaire Moissanite Bạc S925"/>
           <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
@@ -364,7 +375,7 @@
       </div>
 
       <!-- 6. Nhẫn Marquise Halo -->
-      <div class="ring-item group cursor-pointer" data-category="halo">
+      <div class="ring-item group cursor-pointer" data-category="halo" data-price="2499000">
         <div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
           <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-nh-03.png" alt="Nhẫn Marquise Halo Moissanite Bạc S925"/>
           <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
@@ -377,7 +388,7 @@
       </div>
 
       <!-- 7. Nhẫn Pear Shape -->
-      <div class="ring-item group cursor-pointer" data-category="solitaire">
+      <div class="ring-item group cursor-pointer" data-category="solitaire" data-price="1999000">
         <div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
           <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-nh-02.png" alt="Nhẫn Pear Shape Moissanite Bạc S925"/>
           <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
@@ -390,7 +401,7 @@
       </div>
 
       <!-- 8. Nhẫn Eternity Band -->
-      <div class="ring-item group cursor-pointer" data-category="cluster">
+      <div class="ring-item group cursor-pointer" data-category="cluster" data-price="3299000">
         <div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
           <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-nh-01.png" alt="Nhẫn Eternity Band Moissanite Bạc S925"/>
           <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
@@ -490,20 +501,45 @@
       if (e.target === el) closeOverlay(el.id);
     });
   });
-  // Ring page filter
+  // Ring page combined filter (category + price)
+  let activeCategory = 'all';
+  let activePriceMin = 0;
+  let activePriceMax = 99999999;
+
+  function applyRingFilters() {
+    const items = document.querySelectorAll('.ring-item');
+    let count = 0;
+    items.forEach(item => {
+      const catMatch = activeCategory === 'all' || item.dataset.category === activeCategory;
+      const price = parseInt(item.dataset.price || '0');
+      const priceMatch = price >= activePriceMin && price <= activePriceMax;
+      const show = catMatch && priceMatch;
+      item.classList.toggle('hidden', !show);
+      if (show) count++;
+    });
+    document.getElementById('ring-count').textContent = `Hiển thị ${count} sản phẩm`;
+  }
+
   document.querySelectorAll('.ring-filter-btn').forEach(btn => {
     btn.addEventListener('click', function() {
-      const filter = this.dataset.filter;
+      activeCategory = this.dataset.filter;
       document.querySelectorAll('.ring-filter-btn').forEach(b => b.classList.remove('active'));
       this.classList.add('active');
-      const items = document.querySelectorAll('.ring-item');
-      let count = 0;
-      items.forEach(item => {
-        const show = filter === 'all' || item.dataset.category === filter;
-        item.classList.toggle('hidden', !show);
-        if (show) count++;
+      applyRingFilters();
+    });
+  });
+
+  document.querySelectorAll('.price-chip').forEach(chip => {
+    chip.addEventListener('click', function() {
+      activePriceMin = parseInt(this.dataset.min);
+      activePriceMax = parseInt(this.dataset.max);
+      document.querySelectorAll('.price-chip').forEach(c => {
+        c.classList.remove('active');
+        c.classList.add('text-on-surface/60');
       });
-      document.getElementById('ring-count').textContent = `Hiển thị ${count} sản phẩm`;
+      this.classList.add('active');
+      this.classList.remove('text-on-surface/60');
+      applyRingFilters();
     });
   });
 </script>
