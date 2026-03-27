@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&amp;family=Manrope:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "error-container": "#ffdad6",
+              "secondary": "#6a5d41",
+              "on-primary-fixed-variant": "#7b2d23",
+              "on-surface": "#1c1c19",
+              "surface-dim": "#dcdad5",
+              "tertiary": "#505f55",
+              "on-primary-fixed": "#400201",
+              "tertiary-fixed": "#d6e7da",
+              "on-primary-container": "#fffbff",
+              "surface": "#fcf9f4",
+              "on-tertiary-fixed-variant": "#3b4a41",
+              "on-tertiary-fixed": "#111e17",
+              "on-secondary-fixed": "#241a05",
+              "secondary-fixed": "#f3e0bd",
+              "on-background": "#1c1c19",
+              "surface-container-highest": "#e5e2dd",
+              "surface-container-low": "#f6f3ee",
+              "primary-fixed": "#ffdad4",
+              "inverse-surface": "#31302d",
+              "on-secondary": "#ffffff",
+              "on-secondary-container": "#6f6145",
+              "background": "#fcf9f4",
+              "outline-variant": "#dbc1bc",
+              "outline": "#88726f",
+              "on-error-container": "#93000a",
+              "inverse-on-surface": "#f3f0eb",
+              "on-primary": "#ffffff",
+              "on-tertiary-container": "#f6fff6",
+              "inverse-primary": "#ffb4a8",
+              "surface-variant": "#e5e2dd",
+              "on-error": "#ffffff",
+              "secondary-container": "#f1deba",
+              "on-surface-variant": "#55423f",
+              "surface-tint": "#9a4438",
+              "secondary-fixed-dim": "#d6c4a2",
+              "tertiary-fixed-dim": "#bacbbe",
+              "on-secondary-fixed-variant": "#51452b",
+              "primary-fixed-dim": "#ffb4a8",
+              "on-tertiary": "#ffffff",
+              "primary": "#974235",
+              "surface-container": "#f0ede9",
+              "surface-container-high": "#ebe8e3",
+              "surface-container-lowest": "#ffffff",
+              "error": "#ba1a1a",
+              "primary-container": "#b6594c",
+              "surface-bright": "#fcf9f4",
+              "tertiary-container": "#69786e",
+              "gold-deep": "#BD5F51",
+              "champagne-gold": "#D6C4A2",
+              "sage-mint": "#DCE5D8",
+              "ivory": "#F7F4EF"
+            },
+            fontFamily: {
+              "headline": ["Newsreader"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      }
+      .newsreader-italic { font-style: italic; }
+      .glass-nav { backdrop-filter: blur(20px); }
+      .asymmetric-mask { clip-path: polygon(0 0, 100% 10%, 100% 100%, 0 90%); }
+      /* Full-page ring catalog overlay */
+      .ring-page-overlay {
+        position: fixed; inset: 0; z-index: 200;
+        background: #F7F4EF;
+        transform: translateY(100%);
+        transition: transform 0.5s cubic-bezier(0.32,0,0.15,1);
+        overflow-y: auto;
+      }
+      .ring-page-overlay.active { transform: translateY(0); }
+      .ring-filter-btn { transition: color 0.2s, border-color 0.2s; }
+      .ring-filter-btn.active { color: #974235; border-color: #974235; }
+      .ring-item { transition: opacity 0.3s; }
+      .ring-item.hidden { display: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-champagne-gold/30">
+<!-- Top Navigation -->
+<nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl h-16 bg-white/70 dark:bg-stone-900/70 backdrop-blur-md rounded-lg shadow-[0px_20px_40px_rgba(28,28,25,0.04)] z-50 flex justify-between items-center px-8">
+<div class="flex items-center gap-8">
+<a href="#"><img src="emelee-logo.png" alt="emelee" class="h-9 w-auto object-contain"/></a>
+<div class="hidden md:flex gap-6">
+<a class="text-[0.6875rem] font-semibold tracking-[0.1em] font-label uppercase text-[#1C1C19] dark:text-white border-b border-[#D6C4A2] hover:text-[#974235] transition-colors duration-300" href="#">Collections</a>
+<a class="text-[0.6875rem] font-semibold tracking-[0.1em] font-label uppercase text-[#1C1C19]/60 dark:text-[#F6F3EE]/60 hover:text-[#974235] transition-colors duration-300" href="#">Bespoke</a>
+<a class="text-[0.6875rem] font-semibold tracking-[0.1em] font-label uppercase text-[#1C1C19]/60 dark:text-[#F6F3EE]/60 hover:text-[#974235] transition-colors duration-300" href="#">The Stones</a>
+<a class="text-[0.6875rem] font-semibold tracking-[0.1em] font-label uppercase text-[#1C1C19]/60 dark:text-[#F6F3EE]/60 hover:text-[#974235] transition-colors duration-300" href="#">Journal</a>
+</div>
+</div>
+<div class="flex items-center gap-5 text-[#974235] dark:text-[#B6594C]">
+<span class="material-symbols-outlined cursor-pointer hover:scale-95 duration-200">search</span>
+<span class="material-symbols-outlined cursor-pointer hover:scale-95 duration-200">favorite</span>
+<span class="material-symbols-outlined cursor-pointer hover:scale-95 duration-200">shopping_bag</span>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="relative h-[80vh] sm:h-[85vh] flex items-center overflow-hidden pt-16">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="extreme close-up of a high-clarity Moissanite ring on a silk background, dramatic spotlighting creating rainbow fire and brilliant sparkles" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTrmOeu_FMTNEotV05rsKDRoiqLvZH3RE768m0dL1fR2Nog1BClaaPdkn-ALXYG8EBBfPhdrH8grgRycjquoXpAs6hKN3jqctlbC0c2h3DgI0V12hKoijhzL0cHUmg8AAQY3l9PiFYVCI4LR-hmfBTCzHoAmLNA09uK-aNR6ObsuEGF1HH3eYF3qoKaeZpgrwdgg-MFhtvoaExaDqtojfquAcopRoYN76dIZ4409tD0Gfsqbqs8K0nzJS0zXC-IEf0aM2p9GTOGsM"/>
+<div class="absolute inset-0 bg-gradient-to-r from-black/65 via-black/30 to-transparent"></div>
+</div>
+<div class="relative z-10 container mx-auto px-8 md:px-16 grid grid-cols-1 md:grid-cols-12">
+<div class="md:col-span-8 lg:col-span-6">
+<h1 class="text-6xl md:text-8xl font-headline leading-[0.9] tracking-tight mb-8 mt-4 text-[#F7F4EF]">
+                    <span class="block mb-4">Bạn</span><span class="newsreader-italic">xứng đáng</span>
+                </h1>
+<p class="text-lg md:text-xl font-body text-[#F7F4EF]/80 max-w-md mb-4 leading-relaxed">
+                    Moissanite D/VVS1 · Chứng nhận GRA quét QR ngay · Sáng hơn kim cương 10%.
+                </p>
+<p class="text-sm font-body text-[#F7F4EF]/60 max-w-md mb-10 leading-relaxed">
+                    Tự thưởng cho chính mình — không cần đợi ai.
+                </p>
+<a class="inline-flex items-center px-10 py-4 bg-primary text-white text-[0.875rem] font-semibold tracking-widest uppercase rounded-lg hover:shadow-xl transition-all duration-300 active:scale-95" href="#">
+                    Khám phá Self-Reward Box
+                </a>
+</div>
+</div>
+</section>
+<!-- Moissanite Mastery Section -->
+<section class="py-16 bg-sage-mint/30 overflow-hidden">
+<div class="container mx-auto px-8">
+<div class="relative flex flex-col md:flex-row items-center gap-16">
+<div class="w-full md:w-3/5 relative flex justify-center">
+<div class="relative w-4/5">
+<img class="w-full aspect-[4/5] object-cover rounded shadow-2xl relative z-10 border-[0.5px] border-white/20" data-alt="microscopic view of moissanite facet patterns, intricate light refraction and sharp geometric crystal structures with warm glow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRrdzTmaPbnneyaExS9985S5rwnvYqFX0ZiT2s1qkadtRzjNq2wLsLFhwA8uRQCK1P044bxi3YYpzJ2O3ftmSm-Tt906vSjl7sQdH6GGnLPomGiEKwlxR9W5rkqTSgfHo7cZ9Bu-bZGT7nhJ8UELEnH0ZeyDstDlayC33QRMQa29FFkyC08C6xjBm-9IRQUU7vUawFCOAEB9Y3QB-ECZ-SBCTAKuzfjEGgm4iiLR1Mtbs25BT_47znq4iXmLX7cfbXI5q5Pmm_SkI"/>
+<div class="absolute -bottom-12 -right-12 w-3/4 aspect-square z-20 border-[0.5px] border-champagne-gold p-4 bg-surface shadow-xl">
+<img class="w-full h-full object-cover" data-alt="close up detail of jewelry artisan inspecting a loose moissanite gemstone with a loupe under soft atelier lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMb3JOO1JP7HDG1tjcAuDKNYEZ3fSB2W6wWmHAh5xtRuppHPeDoGfWBkjo6176k0SOLYYDcE1ZCNcH_ah7QhskDCbiPIZpLPzFQl2kmW_10TdMluGhoW3ZALD5GxhocpFMO74QOD-3gN-Do4BvFuoz0bSVxi6-7uXBxN0WUJ2gR1EV_RAdE_90klUnAPwe_ZpE5b_OgvWoKWwVBxbndck6GOh7ZUBhkYvmPvxwt23vRxhmzpoHNt5HBtxsEA5aoiyYsjbwxq4N2RI"/>
+</div>
+</div>
+</div>
+<div class="w-full md:w-2/5 z-30">
+<h2 class="text-5xl md:text-7xl font-headline mb-8 leading-none">
+                        Moissanite <br/><span class="newsreader-italic ml-8">Mastery</span>
+</h2>
+<div class="space-y-12">
+<div class="group">
+<div class="text-[0.6875rem] font-bold font-label uppercase text-gold-deep tracking-[0.2em] mb-2">Chỉ Số Lửa</div>
+<div class="text-4xl font-headline flex items-baseline gap-2">
+                                2.65 <span class="text-sm font-body opacity-50 italic">Kim cương chỉ 2.42</span>
+</div>
+<div class="h-px w-0 group-hover:w-full transition-all duration-700 bg-champagne-gold mt-4"></div>
+</div>
+<div class="group">
+<div class="text-[0.6875rem] font-bold font-label uppercase text-gold-deep tracking-[0.2em] mb-2">Độ Cứng Mohs</div>
+<div class="text-4xl font-headline flex items-baseline gap-2">
+                                9.25 <span class="text-sm font-body opacity-50 italic">Bền mỗi ngày · Không xỉn</span>
+</div>
+<div class="h-px w-0 group-hover:w-full transition-all duration-700 bg-champagne-gold mt-4"></div>
+</div>
+<p class="text-on-surface-variant font-body leading-loose italic max-w-sm">
+                            Mỗi viên đá D/VVS1 đi kèm chứng nhận GRA riêng — quét QR verify tại GRA.com trong 30 giây. Bạc S925 mạ rhodium 3 lớp, bảo hành 6 tháng.
+                        </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Collection Overlay Panels -->
+<style>
+  .collection-overlay {
+    position: fixed; inset: 0; z-index: 100;
+    background: rgba(28,28,25,0.5); backdrop-filter: blur(4px);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  .collection-overlay.active { opacity: 1; pointer-events: all; }
+  .collection-panel {
+    position: absolute; top: 0; right: 0; bottom: 0;
+    width: 100%; max-width: 900px;
+    background: #F7F4EF;
+    transform: translateX(100%);
+    transition: transform 0.45s cubic-bezier(0.32,0,0.15,1);
+    overflow-y: auto;
+  }
+  .collection-overlay.active .collection-panel { transform: translateX(0); }
+</style>
+
+<!-- Overlay: Bông Tai -->
+<div class="collection-overlay" id="overlay-bongtai">
+  <div class="collection-panel p-10 md:p-16">
+    <div class="flex justify-between items-start mb-12">
+      <div>
+        <p class="text-[0.6875rem] font-bold font-label uppercase text-gold-deep tracking-[0.4em] mb-2">Bộ sưu tập</p>
+        <h2 class="text-5xl font-headline">Bông Tai <span class="newsreader-italic">Collection</span></h2>
+      </div>
+      <button onclick="closeOverlay('overlay-bongtai')" class="w-10 h-10 flex items-center justify-center border border-champagne-gold/40 hover:bg-champagne-gold/20 transition-colors rounded">
+        <span class="material-symbols-outlined text-on-surface">close</span>
+      </button>
+    </div>
+    <div class="grid grid-cols-2 gap-6">
+      <div class="group cursor-pointer">
+        <div class="relative overflow-hidden bg-white p-5 border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+          <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEazLffVrNh6-5NtjFdXHZIG1b1QdtAAE_ESEAL4phwpygUuPeegA4WanX9NcODulwD-BxnzJI8hSlUgxlzE2pHJE2ptaDvndMTPPhzgQt_p-Eo4S99eidzO5lCgDbaf76bJqL2RiiXLkAVvgTf3OzxgUd4GN3Sxvamu1vJdaMq-G2cEP--hcbdS1c981pmlI71qXvkz1m5qVHAn_k6WvKRpbQXromBxdz9873rzjFqX1ObE0ivmoMsz-Bkyyz1rwH42ZxWTH9fEs"/>
+          <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
+        </div>
+        <div class="mt-4"><h3 class="font-body text-xs font-medium uppercase tracking-wider mb-1">Lumina Studs</h3><p class="font-headline italic text-base text-primary">12.800.000₫</p></div>
+      </div>
+      <div class="group cursor-pointer">
+        <div class="relative overflow-hidden bg-white p-5 border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+          <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbsMLnc_7UM8Bm_z9ATDqZeLh2Gt2_T4ShIQai3Fq6p-Bof5yOl3NSTa3Awa6Y6vqkYDGUM1f9-3a2VzYd56ba_r5fdMYuToKmGKqwIfm0GPNx557OjQxtjPkOXn76f5k21lhINCKJby5-OmtDVL0Sc4lJXN_d0m09eoveiegSiDOXkBwj5eo_UOWrbqGXIfSz_IMM8YEzdV4ZigKdGdt5zQzc0KNVEPGwllw2K2-zq--0lBvEPPAGQFcKzr_ADjfuXS39FUWgzQw"/>
+          <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
+        </div>
+        <div class="mt-4"><h3 class="font-body text-xs font-medium uppercase tracking-wider mb-1">Aurora Drops</h3><p class="font-headline italic text-base text-primary">15.600.000₫</p></div>
+      </div>
+      <div class="group cursor-pointer">
+        <div class="relative overflow-hidden bg-white p-5 border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+          <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMb3JOO1JP7HDG1tjcAuDKNYEZ3fSB2W6wWmHAh5xtRuppHPeDoGfWBkjo6176k0SOLYYDcE1ZCNcH_ah7QhskDCbiPIZpLPzFQl2kmW_10TdMluGhoW3ZALD5GxhocpFMO74QOD-3gN-Do4BvFuoz0bSVxi6-7uXBxN0WUJ2gR1EV_RAdE_90klUnAPwe_ZpE5b_OgvWoKWwVBxbndck6GOh7ZUBhkYvmPvxwt23vRxhmzpoHNt5HBtxsEA5aoiyYsjbwxq4N2RI"/>
+          <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
+        </div>
+        <div class="mt-4"><h3 class="font-body text-xs font-medium uppercase tracking-wider mb-1">Halo Hoops</h3><p class="font-headline italic text-base text-primary">19.200.000₫</p></div>
+      </div>
+      <div class="group cursor-pointer">
+        <div class="relative overflow-hidden bg-white p-5 border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+          <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4wfM7BL6ncobAZIdigil_n0g_8LwJQgKzoV-P8PZhsm6iuyeOef-n5Ki7rqf4uAmkJHiXDq1g4_xbggshrhawJRO4beT1u3Vycz2Yd3ob_uYyonRBd9Nregl16W8BKS74lzQSnx2Re7bZd4X1MLg3FSV6QkgP7Gtk4R7c5lp4FBGu2XH4Kj8BIlPCu-L7EwwrmP4pN0DDmxIrNhsbQ-8P_fNFe26yqijaGH8tJTJh82fgmteJl-icNW5hk4LeaL-qizk7YLoE79c"/>
+          <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
+        </div>
+        <div class="mt-4"><h3 class="font-body text-xs font-medium uppercase tracking-wider mb-1">Petal Ear Cuffs</h3><p class="font-headline italic text-base text-primary">9.800.000₫</p></div>
+      </div>
+      <div class="group cursor-pointer">
+        <div class="relative overflow-hidden bg-white p-5 border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+          <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEazLffVrNh6-5NtjFdXHZIG1b1QdtAAE_ESEAL4phwpygUuPeegA4WanX9NcODulwD-BxnzJI8hSlUgxlzE2pHJE2ptaDvndMTPPhzgQt_p-Eo4S99eidzO5lCgDbaf76bJqL2RiiXLkAVvgTf3OzxgUd4GN3Sxvamu1vJdaMq-G2cEP--hcbdS1c981pmlI71qXvkz1m5qVHAn_k6WvKRpbQXromBxdz9873rzjFqX1ObE0ivmoMsz-Bkyyz1rwH42ZxWTH9fEs"/>
+          <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
+        </div>
+        <div class="mt-4"><h3 class="font-body text-xs font-medium uppercase tracking-wider mb-1">Celestine Dangles</h3><p class="font-headline italic text-base text-primary">22.400.000₫</p></div>
+      </div>
+      <div class="group cursor-pointer">
+        <div class="relative overflow-hidden bg-white p-5 border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+          <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbsMLnc_7UM8Bm_z9ATDqZeLh2Gt2_T4ShIQai3Fq6p-Bof5yOl3NSTa3Awa6Y6vqkYDGUM1f9-3a2VzYd56ba_r5fdMYuToKmGKqwIfm0GPNx557OjQxtjPkOXn76f5k21lhINCKJby5-OmtDVL0Sc4lJXN_d0m09eoveiegSiDOXkBwj5eo_UOWrbqGXIfSz_IMM8YEzdV4ZigKdGdt5zQzc0KNVEPGwllw2K2-zq--0lBvEPPAGQFcKzr_ADjfuXS39FUWgzQw"/>
+          <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
+        </div>
+        <div class="mt-4"><h3 class="font-body text-xs font-medium uppercase tracking-wider mb-1">Soleil Clips</h3><p class="font-headline italic text-base text-primary">11.200.000₫</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Full-Page: Tất Cả Sản Phẩm Nhẫn -->
+<div class="ring-page-overlay" id="overlay-nhan">
+  <!-- Sticky Header -->
+  <div class="sticky top-0 bg-ivory/95 backdrop-blur-md z-10 border-b border-champagne-gold/20">
+    <div class="flex justify-between items-center px-6 md:px-16 pt-6 pb-4 max-w-7xl mx-auto">
+      <div class="flex items-center gap-4">
+        <button onclick="closeOverlay('overlay-nhan')" class="flex items-center gap-2 text-on-surface/60 hover:text-primary transition-colors text-sm font-semibold">
+          <span class="material-symbols-outlined text-base">arrow_back</span>
+          <span class="hidden sm:inline">Quay lại</span>
+        </button>
+        <span class="text-champagne-gold/40">|</span>
+        <div>
+          <p class="text-[0.6rem] font-bold font-label uppercase text-gold-deep tracking-[0.3em]">Bộ sưu tập · emelee</p>
+          <h2 class="text-2xl md:text-3xl font-headline leading-tight">Tất Cả Sản Phẩm <span class="newsreader-italic">Nhẫn</span></h2>
+        </div>
+      </div>
+      <button onclick="closeOverlay('overlay-nhan')" class="w-10 h-10 flex items-center justify-center border border-champagne-gold/40 hover:bg-champagne-gold/20 transition-colors rounded">
+        <span class="material-symbols-outlined text-on-surface">close</span>
+      </button>
+    </div>
+    <!-- Filter Tabs -->
+    <div class="flex gap-1 px-6 md:px-16 pb-0 max-w-7xl mx-auto overflow-x-auto">
+      <button class="ring-filter-btn active text-[0.6875rem] font-bold tracking-[0.15em] uppercase py-3 px-1 border-b-2 border-primary text-primary whitespace-nowrap mr-4" data-filter="all">Tất Cả <span class="text-on-surface/30 font-normal">(8)</span></button>
+      <button class="ring-filter-btn text-[0.6875rem] font-bold tracking-[0.15em] uppercase py-3 px-1 border-b-2 border-transparent text-on-surface/40 hover:text-on-surface/70 whitespace-nowrap mr-4" data-filter="halo">Halo <span class="text-on-surface/30 font-normal">(3)</span></button>
+      <button class="ring-filter-btn text-[0.6875rem] font-bold tracking-[0.15em] uppercase py-3 px-1 border-b-2 border-transparent text-on-surface/40 hover:text-on-surface/70 whitespace-nowrap mr-4" data-filter="solitaire">Solitaire <span class="text-on-surface/30 font-normal">(3)</span></button>
+      <button class="ring-filter-btn text-[0.6875rem] font-bold tracking-[0.15em] uppercase py-3 px-1 border-b-2 border-transparent text-on-surface/40 hover:text-on-surface/70 whitespace-nowrap mr-4" data-filter="cluster">Cluster <span class="text-on-surface/30 font-normal">(2)</span></button>
+    </div>
+  </div>
+
+  <!-- Product Grid -->
+  <div class="px-6 md:px-16 py-10 max-w-7xl mx-auto">
+    <!-- Count + Sort bar -->
+    <div class="flex justify-between items-center mb-8">
+      <p class="text-xs text-on-surface/40 font-label tracking-widest uppercase" id="ring-count">Hiển thị 8 sản phẩm</p>
+      <div class="flex items-center gap-2 text-xs font-label tracking-widest uppercase text-on-surface/50">
+        <span class="material-symbols-outlined text-sm">sort</span> Phổ biến nhất
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10" id="ring-grid">
+
+      <!-- 1. Nhẫn Hoa -->
+      <div class="ring-item group cursor-pointer" data-category="halo">
+        <div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+          <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-nh-03.png" alt="Nhẫn Hoa Moissanite Bạc S925"/>
+          <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
+          <div class="absolute top-3 left-3"><span class="bg-primary text-white text-[0.5rem] font-bold px-2 py-0.5 tracking-wider uppercase">Bestseller</span></div>
+        </div>
+        <div class="mt-3">
+          <p class="font-body text-[0.6rem] text-gold-deep uppercase tracking-widest mb-0.5">SRT · Hoa 1ct · Halo</p>
+          <h3 class="font-body text-xs font-medium uppercase tracking-wider mb-1 leading-tight">Nhẫn Hoa Moissanite · Bạc S925</h3>
+          <p class="font-headline italic text-sm text-primary">1.799.000₫</p>
+        </div>
+      </div>
+
+      <!-- 2. Nhẫn Oval -->
+      <div class="ring-item group cursor-pointer" data-category="solitaire">
+        <div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+          <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-nh-01.png" alt="Nhẫn Oval Moissanite Bạc S925"/>
+          <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
+        </div>
+        <div class="mt-3">
+          <p class="font-body text-[0.6rem] text-gold-deep uppercase tracking-widest mb-0.5">NH-OV · Oval 1ct · Solitaire</p>
+          <h3 class="font-body text-xs font-medium uppercase tracking-wider mb-1 leading-tight">Nhẫn Oval Moissanite · Bạc S925</h3>
+          <p class="font-headline italic text-sm text-primary">1.799.000₫</p>
+        </div>
+      </div>
+
+      <!-- 3. Nhẫn Cỏ May -->
+      <div class="ring-item group cursor-pointer" data-category="cluster">
+        <div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+          <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-nh-02.png" alt="Nhẫn Cỏ May Moissanite Bạc S925"/>
+          <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
+        </div>
+        <div class="mt-3">
+          <p class="font-body text-[0.6rem] text-gold-deep uppercase tracking-widest mb-0.5">ET-01 · Cluster</p>
+          <h3 class="font-body text-xs font-medium uppercase tracking-wider mb-1 leading-tight">Nhẫn Cỏ May Moissanite · Bạc S925</h3>
+          <p class="font-headline italic text-sm text-primary">1.499.000₫</p>
+        </div>
+      </div>
+
+      <!-- 4. Nhẫn Round Halo -->
+      <div class="ring-item group cursor-pointer" data-category="halo">
+        <div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+          <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-nh-04.png" alt="Nhẫn Round Halo Moissanite Bạc S925"/>
+          <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
+        </div>
+        <div class="mt-3">
+          <p class="font-body text-[0.6rem] text-gold-deep uppercase tracking-widest mb-0.5">NH-RH · Round Halo</p>
+          <h3 class="font-body text-xs font-medium uppercase tracking-wider mb-1 leading-tight">Nhẫn Round Halo Moissanite · Bạc S925</h3>
+          <p class="font-headline italic text-sm text-primary">1.799.000₫</p>
+        </div>
+      </div>
+
+      <!-- 5. Nhẫn Princess Solitaire -->
+      <div class="ring-item group cursor-pointer" data-category="solitaire">
+        <div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+          <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-nh-04.png" alt="Nhẫn Princess Solitaire Moissanite Bạc S925"/>
+          <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
+          <div class="absolute top-3 left-3"><span class="bg-sage-mint text-on-surface text-[0.5rem] font-bold px-2 py-0.5 tracking-wider uppercase">Mới</span></div>
+        </div>
+        <div class="mt-3">
+          <p class="font-body text-[0.6rem] text-gold-deep uppercase tracking-widest mb-0.5">NH-PS · Princess · Solitaire</p>
+          <h3 class="font-body text-xs font-medium uppercase tracking-wider mb-1 leading-tight">Nhẫn Princess Solitaire Moissanite · Bạc S925</h3>
+          <p class="font-headline italic text-sm text-primary">2.199.000₫</p>
+        </div>
+      </div>
+
+      <!-- 6. Nhẫn Marquise Halo -->
+      <div class="ring-item group cursor-pointer" data-category="halo">
+        <div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+          <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-nh-03.png" alt="Nhẫn Marquise Halo Moissanite Bạc S925"/>
+          <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
+        </div>
+        <div class="mt-3">
+          <p class="font-body text-[0.6rem] text-gold-deep uppercase tracking-widest mb-0.5">NH-MQ · Marquise Halo</p>
+          <h3 class="font-body text-xs font-medium uppercase tracking-wider mb-1 leading-tight">Nhẫn Marquise Halo Moissanite · Bạc S925</h3>
+          <p class="font-headline italic text-sm text-primary">2.499.000₫</p>
+        </div>
+      </div>
+
+      <!-- 7. Nhẫn Pear Shape -->
+      <div class="ring-item group cursor-pointer" data-category="solitaire">
+        <div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+          <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-nh-02.png" alt="Nhẫn Pear Shape Moissanite Bạc S925"/>
+          <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
+        </div>
+        <div class="mt-3">
+          <p class="font-body text-[0.6rem] text-gold-deep uppercase tracking-widest mb-0.5">NH-PE · Pear Cut · Solitaire</p>
+          <h3 class="font-body text-xs font-medium uppercase tracking-wider mb-1 leading-tight">Nhẫn Pear Shape Moissanite · Bạc S925</h3>
+          <p class="font-headline italic text-sm text-primary">1.999.000₫</p>
+        </div>
+      </div>
+
+      <!-- 8. Nhẫn Eternity Band -->
+      <div class="ring-item group cursor-pointer" data-category="cluster">
+        <div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+          <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-nh-01.png" alt="Nhẫn Eternity Band Moissanite Bạc S925"/>
+          <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
+          <div class="absolute top-3 left-3"><span class="bg-champagne-gold text-on-surface text-[0.5rem] font-bold px-2 py-0.5 tracking-wider uppercase">Limited</span></div>
+        </div>
+        <div class="mt-3">
+          <p class="font-body text-[0.6rem] text-gold-deep uppercase tracking-widest mb-0.5">NH-ET · Eternity · Cluster</p>
+          <h3 class="font-body text-xs font-medium uppercase tracking-wider mb-1 leading-tight">Nhẫn Eternity Band Moissanite · Bạc S925</h3>
+          <p class="font-headline italic text-sm text-primary">3.299.000₫</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA bottom -->
+    <div class="mt-16 pt-10 border-t border-champagne-gold/20 text-center">
+      <p class="text-xs text-on-surface/40 font-label tracking-widest uppercase mb-4">Không tìm được mẫu ưng ý?</p>
+      <a href="#" class="inline-flex items-center gap-2 text-primary font-semibold text-sm border-b border-champagne-gold/50 pb-1 hover:border-primary transition-colors">
+        <span class="material-symbols-outlined text-base">diamond</span> Thiết kế nhẫn theo yêu cầu — Bespoke
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Overlay: Dây Chuyền -->
+<div class="collection-overlay" id="overlay-daychuyen">
+  <div class="collection-panel p-10 md:p-16">
+    <div class="flex justify-between items-start mb-12">
+      <div>
+        <p class="text-[0.6875rem] font-bold font-label uppercase text-gold-deep tracking-[0.4em] mb-2">Bộ sưu tập</p>
+        <h2 class="text-5xl font-headline">Dây Chuyền <span class="newsreader-italic">Collection</span></h2>
+      </div>
+      <button onclick="closeOverlay('overlay-daychuyen')" class="w-10 h-10 flex items-center justify-center border border-champagne-gold/40 hover:bg-champagne-gold/20 transition-colors rounded">
+        <span class="material-symbols-outlined text-on-surface">close</span>
+      </button>
+    </div>
+    <div class="grid grid-cols-2 gap-6">
+      <div class="group cursor-pointer">
+        <div class="relative overflow-hidden bg-white p-5 border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+          <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX-k3q2_5c6WVYfYlLW6w_WzTdFWkfHbWvsdb0fbp4UUw54K-3Tjau8LUQ0JCMDiL5F6mynRWfksk7uFY2EeHdA56Q6Rw_Zm1tN77H6OAjjYsaRlWFq-SjvQrrH4TFRNyAvaobBRfDbW-sgOlQEB46bBNTkZn2geLMvX9CMhh1--DFl2vFFAPQc2OQHLMfT1OnKaMAqmg4zxf5Tj6ewjJ6GY1qVZuio_8E5Sp5A6ouB0h6A7OsSZAZ4j6Llp7vg-PhLJ_KV2U84SY"/>
+          <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
+        </div>
+        <div class="mt-4"><h3 class="font-body text-xs font-medium uppercase tracking-wider mb-1">Aura Necklace</h3><p class="font-headline italic text-base text-primary">18.200.000₫</p></div>
+      </div>
+      <div class="group cursor-pointer">
+        <div class="relative overflow-hidden bg-white p-5 border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+          <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMb3JOO1JP7HDG1tjcAuDKNYEZ3fSB2W6wWmHAh5xtRuppHPeDoGfWBkjo6176k0SOLYYDcE1ZCNcH_ah7QhskDCbiPIZpLPzFQl2kmW_10TdMluGhoW3ZALD5GxhocpFMO74QOD-3gN-Do4BvFuoz0bSVxi6-7uXBxN0WUJ2gR1EV_RAdE_90klUnAPwe_ZpE5b_OgvWoKWwVBxbndck6GOh7ZUBhkYvmPvxwt23vRxhmzpoHNt5HBtxsEA5aoiyYsjbwxq4N2RI"/>
+          <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
+        </div>
+        <div class="mt-4"><h3 class="font-body text-xs font-medium uppercase tracking-wider mb-1">Starfall Pendant</h3><p class="font-headline italic text-base text-primary">26.800.000₫</p></div>
+      </div>
+      <div class="group cursor-pointer">
+        <div class="relative overflow-hidden bg-white p-5 border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+          <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEazLffVrNh6-5NtjFdXHZIG1b1QdtAAE_ESEAL4phwpygUuPeegA4WanX9NcODulwD-BxnzJI8hSlUgxlzE2pHJE2ptaDvndMTPPhzgQt_p-Eo4S99eidzO5lCgDbaf76bJqL2RiiXLkAVvgTf3OzxgUd4GN3Sxvamu1vJdaMq-G2cEP--hcbdS1c981pmlI71qXvkz1m5qVHAn_k6WvKRpbQXromBxdz9873rzjFqX1ObE0ivmoMsz-Bkyyz1rwH42ZxWTH9fEs"/>
+          <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
+        </div>
+        <div class="mt-4"><h3 class="font-body text-xs font-medium uppercase tracking-wider mb-1">Dew Drop Chain</h3><p class="font-headline italic text-base text-primary">14.400.000₫</p></div>
+      </div>
+      <div class="group cursor-pointer">
+        <div class="relative overflow-hidden bg-white p-5 border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+          <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX-k3q2_5c6WVYfYlLW6w_WzTdFWkfHbWvsdb0fbp4UUw54K-3Tjau8LUQ0JCMDiL5F6mynRWfksk7uFY2EeHdA56Q6Rw_Zm1tN77H6OAjjYsaRlWFq-SjvQrrH4TFRNyAvaobBRfDbW-sgOlQEB46bBNTkZn2geLMvX9CMhh1--DFl2vFFAPQc2OQHLMfT1OnKaMAqmg4zxf5Tj6ewjJ6GY1qVZuio_8E5Sp5A6ouB0h6A7OsSZAZ4j6Llp7vg-PhLJ_KV2U84SY"/>
+          <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
+        </div>
+        <div class="mt-4"><h3 class="font-body text-xs font-medium uppercase tracking-wider mb-1">Luna Choker</h3><p class="font-headline italic text-base text-primary">21.500.000₫</p></div>
+      </div>
+      <div class="group cursor-pointer">
+        <div class="relative overflow-hidden bg-white p-5 border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+          <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMb3JOO1JP7HDG1tjcAuDKNYEZ3fSB2W6wWmHAh5xtRuppHPeDoGfWBkjo6176k0SOLYYDcE1ZCNcH_ah7QhskDCbiPIZpLPzFQl2kmW_10TdMluGhoW3ZALD5GxhocpFMO74QOD-3gN-Do4BvFuoz0bSVxi6-7uXBxN0WUJ2gR1EV_RAdE_90klUnAPwe_ZpE5b_OgvWoKWwVBxbndck6GOh7ZUBhkYvmPvxwt23vRxhmzpoHNt5HBtxsEA5aoiyYsjbwxq4N2RI"/>
+          <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
+        </div>
+        <div class="mt-4"><h3 class="font-body text-xs font-medium uppercase tracking-wider mb-1">Velvet Rope</h3><p class="font-headline italic text-base text-primary">33.000.000₫</p></div>
+      </div>
+      <div class="group cursor-pointer">
+        <div class="relative overflow-hidden bg-white p-5 border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+          <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEazLffVrNh6-5NtjFdXHZIG1b1QdtAAE_ESEAL4phwpygUuPeegA4WanX9NcODulwD-BxnzJI8hSlUgxlzE2pHJE2ptaDvndMTPPhzgQt_p-Eo4S99eidzO5lCgDbaf76bJqL2RiiXLkAVvgTf3OzxgUd4GN3Sxvamu1vJdaMq-G2cEP--hcbdS1c981pmlI71qXvkz1m5qVHAn_k6WvKRpbQXromBxdz9873rzjFqX1ObE0ivmoMsz-Bkyyz1rwH42ZxWTH9fEs"/>
+          <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary text-sm">favorite</span></div>
+        </div>
+        <div class="mt-4"><h3 class="font-body text-xs font-medium uppercase tracking-wider mb-1">Infinity Lariat</h3><p class="font-headline italic text-base text-primary">16.800.000₫</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript for overlays -->
+<script>
+  function openOverlay(id) {
+    document.getElementById(id).classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeOverlay(id) {
+    document.getElementById(id).classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  // Close on backdrop click
+  document.querySelectorAll('.collection-overlay').forEach(el => {
+    el.addEventListener('click', function(e) {
+      if (e.target === el) closeOverlay(el.id);
+    });
+  });
+  // Ring page filter
+  document.querySelectorAll('.ring-filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const filter = this.dataset.filter;
+      document.querySelectorAll('.ring-filter-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      const items = document.querySelectorAll('.ring-item');
+      let count = 0;
+      items.forEach(item => {
+        const show = filter === 'all' || item.dataset.category === filter;
+        item.classList.toggle('hidden', !show);
+        if (show) count++;
+      });
+      document.getElementById('ring-count').textContent = `Hiển thị ${count} sản phẩm`;
+    });
+  });
+</script>
+
+<!-- Signature Selection Grid -->
+<section class="py-10 sm:py-16 bg-ivory">
+<div class="container mx-auto px-4 sm:px-8">
+<div class="flex justify-between items-end mb-10 sm:mb-20">
+<div>
+<h2 class="text-4xl font-headline">Signature Selection</h2>
+<p class="font-body text-sm tracking-widest uppercase text-on-surface-variant/60 mt-2">Dòng sản phẩm tiêu biểu</p>
+</div>
+<a class="text-primary text-sm font-semibold border-b border-champagne-gold/50 hover:border-primary transition-colors pb-1" href="#">Xem tất cả</a>
+</div>
+<div class="grid grid-cols-2 gap-x-4 gap-y-8">
+<!-- Product 1 -->
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+<img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-nh-03.png"/>
+<div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary">favorite</span>
+</div>
+</div>
+<div class="mt-3 sm:mt-6">
+<p class="font-body text-[0.6rem] sm:text-xs text-gold-deep uppercase tracking-widest mb-1">SRB · Flagship</p>
+<h3 class="font-body text-xs sm:text-sm font-medium uppercase tracking-wider mb-1">Nhẫn Hoa Moissanite · Bạc S925 GRA</h3>
+<p class="font-headline italic text-sm sm:text-lg text-primary">1.799.000₫</p>
+</div>
+</div>
+<!-- Product 2 -->
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+<img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-nh-01.png"/>
+<div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary">favorite</span>
+</div>
+</div>
+<div class="mt-3 sm:mt-6">
+<p class="font-body text-[0.6rem] sm:text-xs text-gold-deep uppercase tracking-widest mb-1">SRT · Oval 1ct</p>
+<h3 class="font-body text-xs sm:text-sm font-medium uppercase tracking-wider mb-1">Nhẫn Oval Moissanite · Bạc S925 GRA</h3>
+<p class="font-headline italic text-sm sm:text-lg text-primary">1.799.000₫</p>
+</div>
+</div>
+<!-- Product 3 -->
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+<img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-bt-01.png"/>
+<div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary">favorite</span>
+</div>
+</div>
+<div class="mt-3 sm:mt-6">
+<p class="font-body text-[0.6rem] sm:text-xs text-gold-deep uppercase tracking-widest mb-1">BE-01 · Bông Tai</p>
+<h3 class="font-body text-xs sm:text-sm font-medium uppercase tracking-wider mb-1">Bông Tai Pear Halo · Moissanite S925 GRA</h3>
+<p class="font-headline italic text-sm sm:text-lg text-primary">550.000₫</p>
+</div>
+</div>
+<!-- Product 4 -->
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+<img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-dc-01.jpg"/>
+<div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary">favorite</span>
+</div>
+</div>
+<div class="mt-3 sm:mt-6">
+<p class="font-body text-[0.6rem] sm:text-xs text-gold-deep uppercase tracking-widest mb-1">DC-01 · Dây Chuyền</p>
+<h3 class="font-body text-xs sm:text-sm font-medium uppercase tracking-wider mb-1">Dây Chuyền Round Halo · Moissanite S925 GRA</h3>
+<p class="font-headline italic text-sm sm:text-lg text-primary">600.000₫</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Category: Bông Tai -->
+<section class="py-10 sm:py-14 bg-background">
+<div class="container mx-auto px-4 sm:px-8">
+<div class="flex justify-between items-end mb-14">
+<div>
+<p class="text-[0.6875rem] font-bold font-label uppercase text-gold-deep tracking-[0.4em] mb-2">Bộ sưu tập</p>
+<h2 class="text-4xl font-headline">Bông Tai <span class="newsreader-italic">Earrings</span></h2>
+</div>
+<button onclick="openOverlay('overlay-bongtai')" class="group flex items-center gap-2 text-primary text-sm font-semibold border-b border-champagne-gold/50 hover:border-primary transition-colors pb-1">
+  Xem thêm <span class="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">east</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-x-4 gap-y-8">
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+  <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-bt-01.png"/>
+  <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary">favorite</span></div>
+</div>
+<div class="mt-3 sm:mt-5"><p class="font-body text-[0.6rem] text-gold-deep uppercase tracking-widest mb-0.5">BE-01 · Pear Halo</p><h3 class="font-body text-xs sm:text-sm font-medium uppercase tracking-wider mb-1">Bông Tai Pear Halo · Moissanite S925 GRA</h3><p class="font-headline italic text-sm sm:text-lg text-primary">550.000₫</p></div>
+</div>
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+  <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-bt-02.png"/>
+  <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary">favorite</span></div>
+</div>
+<div class="mt-3 sm:mt-5"><p class="font-body text-[0.6rem] text-gold-deep uppercase tracking-widest mb-0.5">BT-02 · Cushion Halo</p><h3 class="font-body text-xs sm:text-sm font-medium uppercase tracking-wider mb-1">Bông Tai Cushion Halo · Moissanite S925 GRA</h3><p class="font-headline italic text-sm sm:text-lg text-primary">700.000₫</p></div>
+</div>
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+  <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-bt-03.jpg"/>
+  <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary">favorite</span></div>
+</div>
+<div class="mt-3 sm:mt-5"><p class="font-body text-[0.6rem] text-gold-deep uppercase tracking-widest mb-0.5">BT-03 · Hoa Cỏ May</p><h3 class="font-body text-xs sm:text-sm font-medium uppercase tracking-wider mb-1">Bông Tai Hoa Cỏ May · Moissanite S925 GRA</h3><p class="font-headline italic text-sm sm:text-lg text-primary">650.000₫</p></div>
+</div>
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+  <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-bt-04.png"/>
+  <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary">favorite</span></div>
+</div>
+<div class="mt-3 sm:mt-5"><p class="font-body text-[0.6rem] text-gold-deep uppercase tracking-widest mb-0.5">BT-04 · Round Halo</p><h3 class="font-body text-xs sm:text-sm font-medium uppercase tracking-wider mb-1">Bông Tai Round Halo · Moissanite S925 GRA</h3><p class="font-headline italic text-sm sm:text-lg text-primary">700.000₫</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Category: Nhẫn -->
+<section class="py-10 sm:py-14 bg-sage-mint/20">
+<div class="container mx-auto px-4 sm:px-8">
+<div class="flex justify-between items-end mb-14">
+<div>
+<p class="text-[0.6875rem] font-bold font-label uppercase text-gold-deep tracking-[0.4em] mb-2">Bộ sưu tập</p>
+<h2 class="text-4xl font-headline">Nhẫn <span class="newsreader-italic">Rings</span></h2>
+</div>
+<button onclick="openOverlay('overlay-nhan')" class="group flex items-center gap-2 text-primary text-sm font-semibold border-b border-champagne-gold/50 hover:border-primary transition-colors pb-1">
+  Tất Cả Nhẫn <span class="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">east</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-x-4 gap-y-8">
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+  <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-nh-03.png"/>
+  <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary">favorite</span></div>
+</div>
+<div class="mt-3 sm:mt-5"><p class="font-body text-[0.6rem] text-gold-deep uppercase tracking-widest mb-0.5">SRT · Hoa 1ct</p><h3 class="font-body text-xs sm:text-sm font-medium uppercase tracking-wider mb-1">Nhẫn Hoa Moissanite · Bạc S925 GRA</h3><p class="font-headline italic text-sm sm:text-lg text-primary">1.799.000₫</p></div>
+</div>
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+  <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-nh-02.png"/>
+  <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary">favorite</span></div>
+</div>
+<div class="mt-3 sm:mt-5"><p class="font-body text-[0.6rem] text-gold-deep uppercase tracking-widest mb-0.5">ET-01 · Cluster</p><h3 class="font-body text-xs sm:text-sm font-medium uppercase tracking-wider mb-1">Nhẫn Cỏ May Moissanite · Bạc S925 GRA</h3><p class="font-headline italic text-sm sm:text-lg text-primary">1.499.000₫</p></div>
+</div>
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+  <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-nh-01.png"/>
+  <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary">favorite</span></div>
+</div>
+<div class="mt-3 sm:mt-5"><p class="font-body text-[0.6rem] text-gold-deep uppercase tracking-widest mb-0.5">NH-OV · Oval 1ct</p><h3 class="font-body text-xs sm:text-sm font-medium uppercase tracking-wider mb-1">Nhẫn Oval Moissanite · Bạc S925 GRA</h3><p class="font-headline italic text-sm sm:text-lg text-primary">1.799.000₫</p></div>
+</div>
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+  <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-nh-04.png"/>
+  <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary">favorite</span></div>
+</div>
+<div class="mt-3 sm:mt-5"><p class="font-body text-[0.6rem] text-gold-deep uppercase tracking-widest mb-0.5">NH-RH · Round Halo</p><h3 class="font-body text-xs sm:text-sm font-medium uppercase tracking-wider mb-1">Nhẫn Round Halo · Moissanite S925 GRA</h3><p class="font-headline italic text-sm sm:text-lg text-primary">1.799.000₫</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Category: Dây Chuyền -->
+<section class="py-10 sm:py-14 bg-ivory">
+<div class="container mx-auto px-4 sm:px-8">
+<div class="flex justify-between items-end mb-14">
+<div>
+<p class="text-[0.6875rem] font-bold font-label uppercase text-gold-deep tracking-[0.4em] mb-2">Bộ sưu tập</p>
+<h2 class="text-4xl font-headline">Dây Chuyền <span class="newsreader-italic">Necklaces</span></h2>
+</div>
+<button onclick="openOverlay('overlay-daychuyen')" class="group flex items-center gap-2 text-primary text-sm font-semibold border-b border-champagne-gold/50 hover:border-primary transition-colors pb-1">
+  Xem thêm <span class="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">east</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-x-4 gap-y-8">
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+  <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-dc-01.jpg"/>
+  <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary">favorite</span></div>
+</div>
+<div class="mt-3 sm:mt-5"><p class="font-body text-[0.6rem] text-gold-deep uppercase tracking-widest mb-0.5">DC-01 · Round Halo</p><h3 class="font-body text-xs sm:text-sm font-medium uppercase tracking-wider mb-1">Dây Chuyền Round Halo · Moissanite S925 GRA</h3><p class="font-headline italic text-sm sm:text-lg text-primary">600.000₫</p></div>
+</div>
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+  <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-dc-06.png"/>
+  <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary">favorite</span></div>
+</div>
+<div class="mt-3 sm:mt-5"><p class="font-body text-[0.6rem] text-gold-deep uppercase tracking-widest mb-0.5">DC-02 · Hoa Tuyết</p><h3 class="font-body text-xs sm:text-sm font-medium uppercase tracking-wider mb-1">Dây Chuyền Hoa Tuyết · Moissanite S925 GRA</h3><p class="font-headline italic text-sm sm:text-lg text-primary">700.000₫</p></div>
+</div>
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+  <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-dc-02.png"/>
+  <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary">favorite</span></div>
+</div>
+<div class="mt-3 sm:mt-5"><p class="font-body text-[0.6rem] text-gold-deep uppercase tracking-widest mb-0.5">DC-03 · Emerald Cut</p><h3 class="font-body text-xs sm:text-sm font-medium uppercase tracking-wider mb-1">Dây Chuyền Emerald · Moissanite S925 GRA</h3><p class="font-headline italic text-sm sm:text-lg text-primary">650.000₫</p></div>
+</div>
+<div class="group cursor-pointer">
+<div class="relative overflow-hidden bg-white border-[0.5px] border-champagne-gold/20 hover:border-champagne-gold transition-colors duration-500">
+  <img class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700" src="p-dc-03.png"/>
+  <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-primary">favorite</span></div>
+</div>
+<div class="mt-3 sm:mt-5"><p class="font-body text-[0.6rem] text-gold-deep uppercase tracking-widest mb-0.5">DC-04 · Trái Tim</p><h3 class="font-body text-xs sm:text-sm font-medium uppercase tracking-wider mb-1">Dây Chuyền Trái Tim · Moissanite S925 GRA</h3><p class="font-headline italic text-sm sm:text-lg text-primary">600.000₫</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- The Atelier Experience -->
+<section class="py-16 bg-background relative overflow-hidden">
+<div class="container mx-auto px-8 relative z-10">
+<div class="grid grid-cols-1 md:grid-cols-12 items-center">
+<div class="md:col-span-5 mb-16 md:mb-0">
+<span class="text-[0.6875rem] font-bold font-label uppercase text-gold-deep tracking-[0.4em] mb-4 block">Hành trình chế tác</span>
+<h2 class="text-5xl md:text-6xl font-headline mb-8 leading-tight">The Atelier <br/><span class="newsreader-italic">Experience</span></h2>
+<div class="w-20 h-0.5 bg-champagne-gold mb-8"></div>
+<p class="text-on-surface-variant font-body text-lg leading-relaxed mb-8">
+                        Mỗi viên đá tại emelee không chỉ được cắt bằng máy móc hiện đại, mà còn được tinh chỉnh bởi đôi tay của những nghệ nhân bậc thầy. Chúng tôi tin rằng linh hồn của trang sức nằm ở sự tận tâm trong từng chi tiết nhỏ nhất.
+                    </p>
+<p class="newsreader-italic text-2xl text-on-surface/60 border-l-2 border-sage-mint pl-6 py-2">
+                        "Biến những giấc mơ tĩnh lặng thành sự rực rỡ hữu hình."
+                    </p>
+</div>
+<div class="md:col-start-7 md:col-span-6 relative">
+<div class="relative aspect-[3/4] w-3/5 md:w-full max-w-xs mx-auto">
+<div class="absolute inset-0 bg-sage-mint -rotate-3 rounded shadow-sm"></div>
+<img class="absolute inset-0 w-full h-full object-cover rounded shadow-2xl transition-transform hover:scale-[1.02] duration-500" data-alt="artisan's workbench with scattered jewelry tools, magnifying glass, and technical drawings of gemstone facets, soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1L9x_bbWlKu1lipaVQAn8Ib-kaE-2aaFBkFLCqnO7gM3Qmf4uiBclRd3BBuh0GR9QybklEDwb9uin5TFa1rRQlWIlQTL7ei-yz8o8PTso1UVHfedvuCV9EetoSt4KZ_uPOkZSJ52mrPXMKFvodjoQiFtp3dAOJIWe7xJArXOtUEPKV1vNp5boZCv483BuPSoloYkIGF8EumHzpt2_LqGQKYciNiNL7Y0mOraJfwFiF1Ap7EF569iTcfx_ft0pCMG-dx28UeuQllA"/>
+</div>
+<!-- Overlapping Typography Decoration -->
+<div class="absolute -bottom-10 -left-20 pointer-events-none select-none hidden lg:block">
+<span class="text-[12rem] font-headline text-sage-mint/40 italic leading-none">Craft</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Brand Ambassador Section -->
+<section class="py-16 bg-[#F7F4EF] overflow-hidden">
+  <div class="container mx-auto px-8">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl md:text-5xl font-headline leading-tight">
+        Á Hậu <span class="newsreader-italic">Phạm Thị Ánh Vương</span>
+      </h2>
+      <div class="w-16 h-px bg-champagne-gold mx-auto mt-5"></div>
+      <p class="text-on-surface-variant font-body text-base leading-relaxed max-w-xl mx-auto mt-5">
+        Miss Grand International Việt Nam 2024 — đồng hành cùng emelee tôn vinh sự tự tin và bản lĩnh của phái đẹp trong mọi khoảnh khắc.
+      </p>
+    </div>
+    <!-- 3 photos grid -->
+    <div class="grid grid-cols-3 gap-3 md:gap-6 max-w-3xl mx-auto">
+      <div class="overflow-hidden rounded shadow-lg">
+        <img src="IMG_1823.JPG" alt="Phạm Thị Ánh Vương" class="w-full h-full object-cover aspect-[3/4] hover:scale-105 transition-transform duration-700"/>
+      </div>
+      <div class="overflow-hidden rounded shadow-xl mt-[-24px]">
+        <img src="IMG_1824.JPG" alt="Phạm Thị Ánh Vương - Miss Grand Vietnam" class="w-full h-full object-cover aspect-[3/4] hover:scale-105 transition-transform duration-700"/>
+      </div>
+      <div class="overflow-hidden rounded shadow-lg">
+        <img src="IMG_1822.JPG" alt="Phạm Thị Ánh Vương với trang sức emelee" class="w-full h-full object-cover aspect-[3/4] hover:scale-105 transition-transform duration-700"/>
+      </div>
+    </div>
+    <p class="text-center font-body text-xs tracking-[0.2em] uppercase text-on-surface-variant/60 mt-8">
+      emelee × Miss Grand International Vietnam 2024
+    </p>
+  </div>
+</section>
+
+<!-- Grand Opening / Our Story Section -->
+<section class="py-16 bg-sage-mint/30 overflow-hidden">
+  <div class="container mx-auto px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+      <div>
+        <span class="text-[0.6875rem] font-bold font-label uppercase text-gold-deep tracking-[0.4em] mb-4 block">Câu Chuyện Của Chúng Tôi</span>
+        <h2 class="text-4xl md:text-5xl font-headline leading-tight mb-6">
+          Grand <span class="newsreader-italic">Opening</span>
+        </h2>
+        <div class="w-16 h-px bg-champagne-gold mb-6"></div>
+        <p class="text-on-surface-variant font-body text-base leading-relaxed mb-4">
+          Mỗi tuyệt tác trang sức từ emelee là sự hòa quyện giữa vẻ đẹp vĩnh cửu của bạc S925 và ánh lấp lánh rực rỡ của Moissanite.
+        </p>
+        <p class="text-on-surface-variant font-body text-base leading-relaxed">
+          Chúng tôi tin rằng trang sức không chỉ để làm đẹp — mà còn là biểu tượng cho hành trình chinh phục thành công và phong cách riêng biệt của bạn.
+        </p>
+      </div>
+      <div class="relative">
+        <img src="IMG_6400.JPG" alt="emelee Grand Opening" class="w-full rounded shadow-2xl object-cover aspect-[4/3]"/>
+        <div class="absolute -bottom-4 -left-4 bg-white/90 backdrop-blur-sm px-6 py-3 rounded shadow-lg">
+          <p class="font-label text-xs tracking-[0.2em] uppercase text-gold-deep">emelee</p>
+          <p class="font-headline text-lg">Grand Opening</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-[#DCE5D8] dark:bg-[#2A3028] text-[#1C1C19] dark:text-[#F6F3EE]">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-12 py-20 w-full max-w-7xl mx-auto">
+<div class="md:col-span-1">
+<a class="mb-8 block" href="#"><img src="emelee-logo.png" alt="emelee" class="h-16 w-auto object-contain"/></a>
+<p class="font-body text-sm opacity-80 leading-relaxed">
+                    Đưa Moissanite lên tầm cao mới của sự sang trọng và đạo đức. Tôn vinh vẻ đẹp vĩnh cửu trong sự tĩnh lặng.
+                </p>
+</div>
+<div>
+<h4 class="newsreader-italic text-[1.75rem] font-headline mb-6">Khám Phá</h4>
+<ul class="space-y-4">
+<li><a class="font-body text-sm tracking-wide text-[#1C1C19]/80 dark:text-[#F6F3EE]/80 hover:translate-x-1 transition-transform duration-300 block" href="#">Bộ Sưu Tập</a></li>
+<li><a class="font-body text-sm tracking-wide text-[#1C1C19]/80 dark:text-[#F6F3EE]/80 hover:translate-x-1 transition-transform duration-300 block" href="#">Đá Quý</a></li>
+<li><a class="font-body text-sm tracking-wide text-[#1C1C19]/80 dark:text-[#F6F3EE]/80 hover:translate-x-1 transition-transform duration-300 block" href="#">Hướng Dẫn Bảo Quản</a></li>
+<li><a class="font-body text-sm tracking-wide text-[#1C1C19]/80 dark:text-[#F6F3EE]/80 hover:translate-x-1 transition-transform duration-300 block" href="#">Phát Triển Bền Vững</a></li>
+</ul>
+</div>
+<div>
+<h4 class="newsreader-italic text-[1.75rem] font-headline mb-6">Hỗ Trợ</h4>
+<ul class="space-y-4">
+<li><a class="font-body text-sm tracking-wide text-[#1C1C19]/80 dark:text-[#F6F3EE]/80 hover:translate-x-1 transition-transform duration-300 block" href="#">Vận Chuyển &amp; Đổi Trả</a></li>
+<li><a class="font-body text-sm tracking-wide text-[#1C1C19]/80 dark:text-[#F6F3EE]/80 hover:translate-x-1 transition-transform duration-300 block" href="#">Chính Sách Bảo Mật</a></li>
+<li><a class="font-body text-sm tracking-wide text-[#1C1C19]/80 dark:text-[#F6F3EE]/80 hover:translate-x-1 transition-transform duration-300 block" href="#">Liên Hệ</a></li>
+</ul>
+</div>
+<div>
+<h4 class="newsreader-italic text-[1.75rem] font-headline mb-6">Tạp Chí</h4>
+<p class="font-body text-xs tracking-widest uppercase mb-4 opacity-60">Nhận tin từ Atelier</p>
+<div class="relative group">
+<input class="w-full bg-transparent border-b border-[#D6C4A2] py-2 focus:outline-none focus:ring-0 focus:border-[#BD5F51] placeholder:text-[#1C1C19]/40" placeholder="Địa chỉ email" type="email"/>
+<button class="absolute right-0 bottom-2 text-primary">
+<span class="material-symbols-outlined">east</span>
+</button>
+</div>
+</div>
+</div>
+<div class="px-12 pb-8 flex flex-col md:flex-row justify-between items-center opacity-60 text-[0.625rem] tracking-[0.2em] uppercase max-w-7xl mx-auto w-full">
+<p>© 2024 emelee moissanite. bảo lưu mọi quyền.</p>
+<div class="flex gap-8 mt-4 md:mt-0">
+<a href="#">Instagram</a>
+<a href="#">Pinterest</a>
+<a href="#">Facebook</a>
+</div>
+</div>
+</footer>
+</body></html>
