@@ -111,6 +111,7 @@
 <a href="#"><img src="emelee-logo.png" alt="emelee" class="h-9 w-auto object-contain"/></a>
 <div class="hidden md:flex gap-6">
 <a class="text-[0.6875rem] font-semibold tracking-[0.1em] font-label uppercase text-[#1C1C19] dark:text-white border-b border-[#D6C4A2] hover:text-[#974235] transition-colors duration-300" href="#">Collections</a>
+<a onclick="openOverlay('overlay-moissanite')" class="text-[0.6875rem] font-semibold tracking-[0.1em] font-label uppercase text-[#1C1C19]/60 dark:text-[#F6F3EE]/60 hover:text-[#974235] transition-colors duration-300 cursor-pointer">Giáo Dục Moissanite</a>
 <a class="text-[0.6875rem] font-semibold tracking-[0.1em] font-label uppercase text-[#1C1C19]/60 dark:text-[#F6F3EE]/60 hover:text-[#974235] transition-colors duration-300" href="#">Bespoke</a>
 <a class="text-[0.6875rem] font-semibold tracking-[0.1em] font-label uppercase text-[#1C1C19]/60 dark:text-[#F6F3EE]/60 hover:text-[#974235] transition-colors duration-300" href="#">The Stones</a>
 <a class="text-[0.6875rem] font-semibold tracking-[0.1em] font-label uppercase text-[#1C1C19]/60 dark:text-[#F6F3EE]/60 hover:text-[#974235] transition-colors duration-300" href="#">Journal</a>
@@ -1137,6 +1138,26 @@
   <div class="absolute -top-16 -left-16 w-56 h-56 border border-[#1C1C19]/5 rounded-full pointer-events-none"></div>
 </section>
 
+<!-- Collection Quick Nav -->
+<section class="bg-ivory border-y border-champagne-gold/20 py-5">
+  <div class="container mx-auto px-6">
+    <div class="flex flex-wrap justify-center gap-2 md:gap-4">
+      <button onclick="openOverlay('overlay-nhan')" class="flex items-center gap-2 px-5 py-2.5 border border-champagne-gold/50 hover:border-primary hover:text-primary text-on-surface/80 text-[0.75rem] font-label font-semibold uppercase tracking-wider rounded-full transition-all duration-200">
+        <span class="material-symbols-outlined" style="font-size:16px">diamond</span> Tất Cả Nhẫn
+      </button>
+      <button onclick="openOverlay('overlay-bongtai')" class="flex items-center gap-2 px-5 py-2.5 border border-champagne-gold/50 hover:border-primary hover:text-primary text-on-surface/80 text-[0.75rem] font-label font-semibold uppercase tracking-wider rounded-full transition-all duration-200">
+        <span class="material-symbols-outlined" style="font-size:16px">circle</span> Tất Cả Bông Tai
+      </button>
+      <button onclick="openOverlay('overlay-daychuyen')" class="flex items-center gap-2 px-5 py-2.5 border border-champagne-gold/50 hover:border-primary hover:text-primary text-on-surface/80 text-[0.75rem] font-label font-semibold uppercase tracking-wider rounded-full transition-all duration-200">
+        <span class="material-symbols-outlined" style="font-size:16px">link</span> Tất Cả Dây Chuyền
+      </button>
+      <button onclick="openOverlay('overlay-signature')" class="flex items-center gap-2 px-5 py-2.5 bg-primary text-white text-[0.75rem] font-label font-semibold uppercase tracking-wider rounded-full hover:bg-primary-container transition-all duration-200 shadow-sm shadow-primary/20">
+        <span class="material-symbols-outlined" style="font-size:16px">auto_awesome</span> Signature Selection
+      </button>
+    </div>
+  </div>
+</section>
+
 <!-- Collection Spotlight -->
 <section class="py-20 px-8 md:px-16 bg-ivory">
   <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
@@ -1184,7 +1205,25 @@
   </div>
 </section>
 
-<!-- Moissanite Education Section -->
+<!-- Moissanite Education Overlay -->
+<div class="ring-page-overlay" id="overlay-moissanite">
+  <div class="sticky top-0 bg-ivory/95 backdrop-blur-md z-10 border-b border-champagne-gold/20">
+    <div class="flex justify-between items-center px-6 md:px-16 pt-6 pb-4 max-w-7xl mx-auto">
+      <div class="flex items-center gap-4">
+        <button onclick="closeOverlay('overlay-moissanite')" class="flex items-center gap-2 text-on-surface/60 hover:text-primary transition-colors text-sm font-semibold">
+          <span class="material-symbols-outlined text-base">arrow_back</span><span class="hidden sm:inline">Quay lại</span>
+        </button>
+        <span class="text-champagne-gold/40">|</span>
+        <div>
+          <p class="text-[0.6rem] font-bold font-label uppercase text-gold-deep tracking-[0.3em]">Kiến thức đá quý</p>
+          <h2 class="text-2xl md:text-3xl font-headline leading-tight">Giáo Dục <span class="newsreader-italic">Moissanite</span></h2>
+        </div>
+      </div>
+      <button onclick="closeOverlay('overlay-moissanite')" class="w-10 h-10 flex items-center justify-center border border-champagne-gold/40 hover:bg-champagne-gold/20 transition-colors rounded">
+        <span class="material-symbols-outlined text-on-surface">close</span>
+      </button>
+    </div>
+  </div>
 <section class="py-20 bg-[#f5f1ea] relative overflow-hidden">
   <!-- decorative bg circles -->
   <div class="absolute top-0 right-0 w-96 h-96 bg-sage-mint/30 rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
@@ -1560,6 +1599,26 @@
     }
   }
 </script>
+</div>
+
+<!-- Moissanite Education Teaser -->
+<section class="py-16 bg-[#f5f1ea]">
+  <div class="container mx-auto px-6 md:px-8">
+    <div class="max-w-3xl mx-auto bg-white/70 border border-champagne-gold/30 rounded-2xl p-8 md:p-10 flex flex-col md:flex-row gap-8 items-center text-center md:text-left">
+      <div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mx-auto md:mx-0">
+        <span class="material-symbols-outlined text-primary" style="font-size:32px;font-variation-settings:'FILL' 0,'wght' 200">diamond</span>
+      </div>
+      <div class="flex-1">
+        <span class="text-[0.65rem] font-bold font-label uppercase text-gold-deep tracking-[0.4em] mb-2 block">Kiến thức đá quý</span>
+        <h3 class="font-headline text-2xl md:text-3xl mb-2">Moissanite là gì? <span class="newsreader-italic text-primary">Tìm hiểu đầy đủ</span></h3>
+        <p class="text-sm text-on-surface/70 font-body leading-relaxed mb-5">Nguồn gốc, chỉ số quang học, so sánh với kim cương, và câu hỏi thường gặp — tất cả trong một trang.</p>
+        <button onclick="openOverlay('overlay-moissanite')" class="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 text-[0.7rem] font-bold tracking-[0.2em] uppercase rounded-lg hover:bg-primary-container transition-colors shadow-sm shadow-primary/20">
+          <span class="material-symbols-outlined" style="font-size:16px">school</span> Giáo Dục Moissanite
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- EMELEE CAM KẾT Section -->
 <section class="py-20 bg-sage-mint/30 relative overflow-hidden">
