@@ -1495,108 +1495,112 @@
   </div>
 </section>
 
-<!-- Cách Bảo Quản Section -->
-<section id="bao-quan" class="py-20 bg-[#F7F4EF] relative overflow-hidden">
-  <div class="absolute inset-0 pointer-events-none opacity-[0.07]">
-    <div class="absolute top-0 right-0 w-72 h-72 border border-champagne-gold rounded-full translate-x-1/3 -translate-y-1/3"></div>
-    <div class="absolute bottom-0 left-0 w-56 h-56 border border-champagne-gold rounded-full -translate-x-1/3 translate-y-1/3"></div>
-  </div>
-  <div class="container mx-auto px-6 md:px-8 relative z-10">
-    <!-- Header -->
-    <div class="text-center mb-12">
-      <span class="text-[0.6875rem] font-bold font-label uppercase text-gold-deep tracking-[0.4em] mb-4 block">Hướng dẫn sử dụng</span>
-      <h2 class="text-4xl md:text-5xl font-headline leading-tight mb-3">Giữ Bạc Luôn <span class="newsreader-italic text-primary">Trắng Sáng</span></h2>
-      <div class="w-16 h-0.5 bg-champagne-gold mx-auto mt-5"></div>
+<!-- Modal: Cách Bảo Quản -->
+<div id="modal-bao-quan" class="fixed inset-0 z-[300] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+  <!-- backdrop -->
+  <div class="absolute inset-0 bg-[#1C1C19]/50 backdrop-blur-sm" onclick="closeBaoQuan()"></div>
+  <!-- panel -->
+  <div class="relative bg-[#F7F4EF] rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8 translate-y-4 transition-transform duration-300" id="modal-bao-quan-panel">
+    <!-- close button -->
+    <button onclick="closeBaoQuan()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-champagne-gold/20 hover:bg-champagne-gold/40 flex items-center justify-center transition-colors">
+      <span class="material-symbols-outlined text-on-surface" style="font-size:20px">close</span>
+    </button>
+    <!-- header -->
+    <div class="text-center mb-8">
+      <span class="text-[0.6875rem] font-bold font-label uppercase text-gold-deep tracking-[0.4em] mb-3 block">Hướng dẫn sử dụng</span>
+      <h2 class="text-3xl font-headline leading-tight mb-3">Giữ Bạc Luôn <span class="newsreader-italic text-primary">Trắng Sáng</span></h2>
+      <div class="w-12 h-0.5 bg-champagne-gold mx-auto mt-4"></div>
     </div>
-
     <!-- 6 care cards -->
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-8">
-      <!-- 1 -->
-      <div class="bg-white/80 border border-champagne-gold/25 rounded-xl p-5 flex flex-col items-center text-center group hover:border-primary/30 hover:shadow-sm transition-all duration-200">
-        <div class="w-12 h-12 rounded-full bg-champagne-gold/20 flex items-center justify-center mb-3 group-hover:bg-champagne-gold/40 transition-colors relative">
-          <span class="material-symbols-outlined text-[#BD5F51]" style="font-size:24px">science</span>
-          <span class="absolute -top-1 -right-1 w-5 h-5 bg-primary rounded-full flex items-center justify-center">
-            <span class="material-symbols-outlined text-white" style="font-size:12px">close</span>
-          </span>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+      <div class="bg-white/80 border border-champagne-gold/25 rounded-xl p-4 flex flex-col items-center text-center">
+        <div class="w-11 h-11 rounded-full bg-champagne-gold/20 flex items-center justify-center mb-2.5 relative">
+          <span class="material-symbols-outlined text-[#BD5F51]" style="font-size:22px">science</span>
+          <span class="absolute -top-1 -right-1 w-4 h-4 bg-primary rounded-full flex items-center justify-center"><span class="material-symbols-outlined text-white" style="font-size:10px">close</span></span>
         </div>
-        <h4 class="font-label font-bold text-[0.8rem] uppercase tracking-wide text-on-surface mb-1.5 leading-snug">Tránh Tiếp Xúc<br/>Hóa Chất</h4>
-        <p class="text-[0.72rem] text-on-surface/75 font-body leading-relaxed">Nước hoa, thuốc nhuộm, nước bể bơi, nước muối.</p>
+        <h4 class="font-label font-bold text-[0.75rem] uppercase tracking-wide text-on-surface mb-1 leading-snug">Tránh Tiếp Xúc<br/>Hóa Chất</h4>
+        <p class="text-[0.7rem] text-on-surface/75 font-body leading-relaxed">Nước hoa, thuốc nhuộm, nước bể bơi, nước muối.</p>
       </div>
-      <!-- 2 -->
-      <div class="bg-white/80 border border-champagne-gold/25 rounded-xl p-5 flex flex-col items-center text-center group hover:border-primary/30 hover:shadow-sm transition-all duration-200">
-        <div class="w-12 h-12 rounded-full bg-champagne-gold/20 flex items-center justify-center mb-3 group-hover:bg-champagne-gold/40 transition-colors relative">
-          <span class="material-symbols-outlined text-[#BD5F51]" style="font-size:24px">shower</span>
-          <span class="absolute -top-1 -right-1 w-5 h-5 bg-primary rounded-full flex items-center justify-center">
-            <span class="material-symbols-outlined text-white" style="font-size:12px">close</span>
-          </span>
+      <div class="bg-white/80 border border-champagne-gold/25 rounded-xl p-4 flex flex-col items-center text-center">
+        <div class="w-11 h-11 rounded-full bg-champagne-gold/20 flex items-center justify-center mb-2.5 relative">
+          <span class="material-symbols-outlined text-[#BD5F51]" style="font-size:22px">shower</span>
+          <span class="absolute -top-1 -right-1 w-4 h-4 bg-primary rounded-full flex items-center justify-center"><span class="material-symbols-outlined text-white" style="font-size:10px">close</span></span>
         </div>
-        <h4 class="font-label font-bold text-[0.8rem] uppercase tracking-wide text-on-surface mb-1.5 leading-snug">Không Mang<br/>Khi Tắm</h4>
-        <p class="text-[0.72rem] text-on-surface/75 font-body leading-relaxed">Nên tháo trang sức ra trước khi đi tắm.</p>
+        <h4 class="font-label font-bold text-[0.75rem] uppercase tracking-wide text-on-surface mb-1 leading-snug">Không Mang<br/>Khi Tắm</h4>
+        <p class="text-[0.7rem] text-on-surface/75 font-body leading-relaxed">Nên tháo trang sức ra trước khi đi tắm.</p>
       </div>
-      <!-- 3 -->
-      <div class="bg-white/80 border border-champagne-gold/25 rounded-xl p-5 flex flex-col items-center text-center group hover:border-primary/30 hover:shadow-sm transition-all duration-200">
-        <div class="w-12 h-12 rounded-full bg-champagne-gold/20 flex items-center justify-center mb-3 group-hover:bg-champagne-gold/40 transition-colors relative">
-          <span class="material-symbols-outlined text-[#BD5F51]" style="font-size:24px">sports</span>
-          <span class="absolute -top-1 -right-1 w-5 h-5 bg-primary rounded-full flex items-center justify-center">
-            <span class="material-symbols-outlined text-white" style="font-size:12px">close</span>
-          </span>
+      <div class="bg-white/80 border border-champagne-gold/25 rounded-xl p-4 flex flex-col items-center text-center">
+        <div class="w-11 h-11 rounded-full bg-champagne-gold/20 flex items-center justify-center mb-2.5 relative">
+          <span class="material-symbols-outlined text-[#BD5F51]" style="font-size:22px">sports</span>
+          <span class="absolute -top-1 -right-1 w-4 h-4 bg-primary rounded-full flex items-center justify-center"><span class="material-symbols-outlined text-white" style="font-size:10px">close</span></span>
         </div>
-        <h4 class="font-label font-bold text-[0.8rem] uppercase tracking-wide text-on-surface mb-1.5 leading-snug">Tránh Va Đập<br/>Mạnh</h4>
-        <p class="text-[0.72rem] text-on-surface/75 font-body leading-relaxed">Tránh đeo khi chơi thể thao vận động mạnh.</p>
+        <h4 class="font-label font-bold text-[0.75rem] uppercase tracking-wide text-on-surface mb-1 leading-snug">Tránh Va Đập<br/>Mạnh</h4>
+        <p class="text-[0.7rem] text-on-surface/75 font-body leading-relaxed">Tránh đeo khi chơi thể thao vận động mạnh.</p>
       </div>
-      <!-- 4 -->
-      <div class="bg-white/80 border border-champagne-gold/25 rounded-xl p-5 flex flex-col items-center text-center group hover:border-primary/30 hover:shadow-sm transition-all duration-200">
-        <div class="w-12 h-12 rounded-full bg-champagne-gold/20 flex items-center justify-center mb-3 group-hover:bg-champagne-gold/40 transition-colors relative">
-          <span class="material-symbols-outlined text-[#BD5F51]" style="font-size:24px">directions_run</span>
-          <span class="absolute -top-1 -right-1 w-5 h-5 bg-primary rounded-full flex items-center justify-center">
-            <span class="material-symbols-outlined text-white" style="font-size:12px">close</span>
-          </span>
+      <div class="bg-white/80 border border-champagne-gold/25 rounded-xl p-4 flex flex-col items-center text-center">
+        <div class="w-11 h-11 rounded-full bg-champagne-gold/20 flex items-center justify-center mb-2.5 relative">
+          <span class="material-symbols-outlined text-[#BD5F51]" style="font-size:22px">directions_run</span>
+          <span class="absolute -top-1 -right-1 w-4 h-4 bg-primary rounded-full flex items-center justify-center"><span class="material-symbols-outlined text-white" style="font-size:10px">close</span></span>
         </div>
-        <h4 class="font-label font-bold text-[0.8rem] uppercase tracking-wide text-on-surface mb-1.5 leading-snug">Tránh Đeo Khi<br/>Có Mồ Hôi</h4>
-        <p class="text-[0.72rem] text-on-surface/75 font-body leading-relaxed">Hạn chế đeo khi người có nhiều mồ hôi.</p>
+        <h4 class="font-label font-bold text-[0.75rem] uppercase tracking-wide text-on-surface mb-1 leading-snug">Tránh Đeo Khi<br/>Có Mồ Hôi</h4>
+        <p class="text-[0.7rem] text-on-surface/75 font-body leading-relaxed">Hạn chế đeo khi người có nhiều mồ hôi.</p>
       </div>
-      <!-- 5 -->
-      <div class="bg-white/80 border border-champagne-gold/25 rounded-xl p-5 flex flex-col items-center text-center group hover:border-primary/30 hover:shadow-sm transition-all duration-200">
-        <div class="w-12 h-12 rounded-full bg-sage-mint/50 flex items-center justify-center mb-3 group-hover:bg-sage-mint/70 transition-colors">
-          <span class="material-symbols-outlined text-[#505f55]" style="font-size:24px">cleaning_services</span>
+      <div class="bg-white/80 border border-champagne-gold/25 rounded-xl p-4 flex flex-col items-center text-center">
+        <div class="w-11 h-11 rounded-full bg-sage-mint/50 flex items-center justify-center mb-2.5">
+          <span class="material-symbols-outlined text-[#505f55]" style="font-size:22px">cleaning_services</span>
         </div>
-        <h4 class="font-label font-bold text-[0.8rem] uppercase tracking-wide text-on-surface mb-1.5 leading-snug">Vệ Sinh<br/>Trang Sức</h4>
-        <p class="text-[0.72rem] text-on-surface/75 font-body leading-relaxed">Vệ sinh bằng khăn lau bạc nhà emelee.</p>
+        <h4 class="font-label font-bold text-[0.75rem] uppercase tracking-wide text-on-surface mb-1 leading-snug">Vệ Sinh<br/>Trang Sức</h4>
+        <p class="text-[0.7rem] text-on-surface/75 font-body leading-relaxed">Vệ sinh bằng khăn lau bạc nhà emelee.</p>
       </div>
-      <!-- 6 -->
-      <div class="bg-white/80 border border-champagne-gold/25 rounded-xl p-5 flex flex-col items-center text-center group hover:border-primary/30 hover:shadow-sm transition-all duration-200">
-        <div class="w-12 h-12 rounded-full bg-champagne-gold/20 flex items-center justify-center mb-3 group-hover:bg-champagne-gold/40 transition-colors relative">
-          <span class="material-symbols-outlined text-[#BD5F51]" style="font-size:24px">bedtime</span>
-          <span class="absolute -top-1 -right-1 w-5 h-5 bg-primary rounded-full flex items-center justify-center">
-            <span class="material-symbols-outlined text-white" style="font-size:12px">close</span>
-          </span>
+      <div class="bg-white/80 border border-champagne-gold/25 rounded-xl p-4 flex flex-col items-center text-center">
+        <div class="w-11 h-11 rounded-full bg-champagne-gold/20 flex items-center justify-center mb-2.5 relative">
+          <span class="material-symbols-outlined text-[#BD5F51]" style="font-size:22px">bedtime</span>
+          <span class="absolute -top-1 -right-1 w-4 h-4 bg-primary rounded-full flex items-center justify-center"><span class="material-symbols-outlined text-white" style="font-size:10px">close</span></span>
         </div>
-        <h4 class="font-label font-bold text-[0.8rem] uppercase tracking-wide text-on-surface mb-1.5 leading-snug">Tháo Ra<br/>Khi Đi Ngủ</h4>
-        <p class="text-[0.72rem] text-on-surface/75 font-body leading-relaxed">Nên tháo ra trước khi đi ngủ bạn nhé.</p>
+        <h4 class="font-label font-bold text-[0.75rem] uppercase tracking-wide text-on-surface mb-1 leading-snug">Tháo Ra<br/>Khi Đi Ngủ</h4>
+        <p class="text-[0.7rem] text-on-surface/75 font-body leading-relaxed">Nên tháo ra trước khi đi ngủ bạn nhé.</p>
       </div>
     </div>
-
-    <!-- Lưu ý banner -->
-    <div class="max-w-2xl mx-auto bg-white/60 border border-champagne-gold/30 rounded-xl p-5 flex gap-4 items-start">
-      <div class="w-10 h-10 rounded-full bg-champagne-gold/25 flex items-center justify-center flex-shrink-0 mt-0.5">
-        <span class="material-symbols-outlined text-[#BD5F51]" style="font-size:20px">info</span>
+    <!-- Lưu ý -->
+    <div class="bg-white/60 border border-champagne-gold/30 rounded-xl p-4 flex gap-3 items-start">
+      <div class="w-9 h-9 rounded-full bg-champagne-gold/25 flex items-center justify-center flex-shrink-0 mt-0.5">
+        <span class="material-symbols-outlined text-[#BD5F51]" style="font-size:18px">info</span>
       </div>
       <div>
-        <h4 class="font-label font-bold text-sm uppercase tracking-widest text-on-surface/80 mb-2">Lưu Ý Bảo Quản</h4>
-        <ul class="space-y-1.5">
-          <li class="flex items-start gap-2 text-[0.78rem] text-on-surface/75 font-body">
-            <span class="material-symbols-outlined text-primary flex-shrink-0" style="font-size:14px;margin-top:2px">check</span>
+        <h4 class="font-label font-bold text-xs uppercase tracking-widest text-on-surface/80 mb-1.5">Lưu Ý Bảo Quản</h4>
+        <ul class="space-y-1">
+          <li class="flex items-start gap-2 text-[0.75rem] text-on-surface/75 font-body">
+            <span class="material-symbols-outlined text-primary flex-shrink-0" style="font-size:13px;margin-top:2px">check</span>
             Nên lau sạch, vệ sinh sản phẩm trước khi cất.
           </li>
-          <li class="flex items-start gap-2 text-[0.78rem] text-on-surface/75 font-body">
-            <span class="material-symbols-outlined text-primary flex-shrink-0" style="font-size:14px;margin-top:2px">check</span>
-            Bảo quản trang sức bạc trong <strong class="text-on-surface">hộp kín hoặc túi zip</strong> khi không sử dụng.
+          <li class="flex items-start gap-2 text-[0.75rem] text-on-surface/75 font-body">
+            <span class="material-symbols-outlined text-primary flex-shrink-0" style="font-size:13px;margin-top:2px">check</span>
+            Bảo quản trong <strong class="text-on-surface">hộp kín hoặc túi zip</strong> khi không sử dụng.
           </li>
         </ul>
       </div>
     </div>
   </div>
-</section>
+</div>
+<script>
+  function openBaoQuan() {
+    const m = document.getElementById('modal-bao-quan');
+    const p = document.getElementById('modal-bao-quan-panel');
+    m.classList.remove('opacity-0','pointer-events-none');
+    m.classList.add('opacity-100');
+    p.classList.remove('translate-y-4');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeBaoQuan() {
+    const m = document.getElementById('modal-bao-quan');
+    const p = document.getElementById('modal-bao-quan-panel');
+    m.classList.add('opacity-0','pointer-events-none');
+    m.classList.remove('opacity-100');
+    p.classList.add('translate-y-4');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeBaoQuan(); });
+</script>
 
 <!-- Footer -->
 <footer class="bg-[#DCE5D8] dark:bg-[#2A3028] text-[#1C1C19] dark:text-[#F6F3EE]">
@@ -1612,7 +1616,7 @@
 <ul class="space-y-4">
 <li><a class="font-body text-sm tracking-wide text-[#1C1C19] dark:text-[#F6F3EE] hover:text-[#974235] hover:translate-x-1 transition-all duration-300 block" href="#">Bộ Sưu Tập</a></li>
 <li><a class="font-body text-sm tracking-wide text-[#1C1C19] dark:text-[#F6F3EE] hover:text-[#974235] hover:translate-x-1 transition-all duration-300 block" href="#">Đá Quý</a></li>
-<li><a class="font-body text-sm tracking-wide text-[#1C1C19] dark:text-[#F6F3EE] hover:text-[#974235] hover:translate-x-1 transition-all duration-300 block" href="#bao-quan">Hướng Dẫn Bảo Quản</a></li>
+<li><a class="font-body text-sm tracking-wide text-[#1C1C19] dark:text-[#F6F3EE] hover:text-[#974235] hover:translate-x-1 transition-all duration-300 block cursor-pointer" onclick="openBaoQuan()">Hướng Dẫn Bảo Quản</a></li>
 <li><a class="font-body text-sm tracking-wide text-[#1C1C19] dark:text-[#F6F3EE] hover:text-[#974235] hover:translate-x-1 transition-all duration-300 block" href="#">Phát Triển Bền Vững</a></li>
 </ul>
 </div>
