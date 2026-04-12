@@ -323,10 +323,6 @@ tailwind.config = {
                 </div>
                 <div class="flex items-start gap-3 text-[12px]">
                   <span class="text-[#D4AF37] text-lg leading-none">✦</span>
-                  <span class="text-white/80">100% ảnh thật — không filter, không chỉnh màu</span>
-                </div>
-                <div class="flex items-start gap-3 text-[12px]">
-                  <span class="text-[#D4AF37] text-lg leading-none">✦</span>
                   <span class="text-white/80">Self-Reward Box — hộp quà bạn tặng chính mình</span>
                 </div>
               </div>
@@ -522,17 +518,87 @@ tailwind.config = {
 </div>
 
 <!-- ─── FOOTER ─── -->
-<footer class="border-t border-border/30 bg-bone mt-8">
-  <div class="max-w-screen-xl mx-auto px-6 lg:px-10 py-12 flex flex-col lg:flex-row justify-between items-center gap-6">
-    <div class="text-center lg:text-left">
-      <a href="./emelee.html" class="font-serif text-xl italic text-ink">emelee</a>
-      <p class="text-[11px] text-muted mt-1 uppercase tracking-widest">© 2026 Emelee Atelier. All Rights Reserved.</p>
+<footer class="border-t border-border/30 bg-[#1C1C19] mt-8">
+  <div class="max-w-screen-xl mx-auto px-6 lg:px-10 pt-14 pb-10">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+
+      <!-- Col 1: Brand -->
+      <div class="col-span-2 lg:col-span-1">
+        <a href="./emelee.html" class="font-serif text-2xl italic text-white block mb-4">emelee</a>
+        <p class="text-[12px] text-white/50 leading-relaxed mb-6">Moissanite cao cấp — sang trọng, đạo đức và bền vĩnh cửu. Mỗi chiếc nhẫn đều có chứng nhận GRA riêng.</p>
+        <a href="https://zalo.me/emeleejewelry" target="_blank" class="inline-flex items-center gap-2 text-[11px] uppercase tracking-widest text-[#D4AF37] hover:text-white transition-colors">
+          Liên hệ Zalo <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span>
+        </a>
+      </div>
+
+      <!-- Col 2: Sản Phẩm -->
+      <div>
+        <p class="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-5">Sản Phẩm</p>
+        <ul class="space-y-3">
+          <li><a href="./emelee.html" class="text-[12px] text-white/70 hover:text-white transition-colors">Tất Cả Nhẫn</a></li>
+          <li><a href="./nhan-oval-moissanite-2-carat.html" class="text-[12px] text-white/70 hover:text-white transition-colors">Nhẫn Oval</a></li>
+          <li><a href="./nhan-round-moissanite-2-carat.html" class="text-[12px] text-white/70 hover:text-white transition-colors">Nhẫn Round</a></li>
+          <li><a href="./nhan-emerald-moissanite-2-carat.html" class="text-[12px] text-white/70 hover:text-white transition-colors">Nhẫn Emerald</a></li>
+          <li><a href="./nhan-trai-tim-moissanite-1-carat.html" class="text-[12px] text-white/70 hover:text-white transition-colors">Nhẫn Trái Tim</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Chăm Sóc & Bảo Hành -->
+      <div>
+        <p class="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-5">Chăm Sóc & Bảo Hành</p>
+        <ul class="space-y-3">
+          <li>
+            <span class="text-[12px] text-white/70">Nước Rửa Trang Sức</span>
+            <p class="text-[11px] text-white/40 mt-0.5">Ngâm 3–8 giây · rửa · lau khô</p>
+          </li>
+          <li>
+            <span class="text-[12px] text-white/70">Hướng Dẫn Bảo Quản</span>
+            <p class="text-[11px] text-white/40 mt-0.5">Tháo khi tắm · lau sau khi đeo</p>
+          </li>
+          <li>
+            <span class="text-[12px] text-white/70">Bảo Hành Mạ Lại</span>
+            <p class="text-[11px] text-white/40 mt-0.5">Miễn phí sau 12–18 tháng</p>
+          </li>
+          <li>
+            <span class="text-[12px] text-white/70">Đổi Trả</span>
+            <p class="text-[11px] text-white/40 mt-0.5">7 ngày nếu lỗi sản phẩm</p>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Kiến Thức Moissanite -->
+      <div>
+        <p class="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-5">Kiến Thức Moissanite</p>
+        <ul class="space-y-3">
+          <li>
+            <span class="text-[12px] text-white/70">Moissanite Là Gì?</span>
+            <p class="text-[11px] text-white/40 mt-0.5">Nguồn gốc từ thiên thạch, chỉ số khúc xạ 2.69</p>
+          </li>
+          <li>
+            <span class="text-[12px] text-white/70">So Sánh Với Kim Cương</span>
+            <p class="text-[11px] text-white/40 mt-0.5">Sáng hơn 10%, cứng 9.25 Mohs</p>
+          </li>
+          <li>
+            <span class="text-[12px] text-white/70">Chứng Nhận GRA</span>
+            <p class="text-[11px] text-white/40 mt-0.5">Scan QR xác thực tại GRA.com</p>
+          </li>
+          <li>
+            <span class="text-[12px] text-white/70">Hỏi & Đáp Thường Gặp</span>
+            <p class="text-[11px] text-white/40 mt-0.5">Giải đáp mọi thắc mắc trước khi mua</p>
+          </li>
+        </ul>
+      </div>
+
     </div>
-    <div class="flex flex-wrap justify-center gap-8">
-      <a href="#" class="text-[11px] uppercase tracking-widest text-muted hover:text-clay transition-colors">Về Emelee</a>
-      <a href="#" class="text-[11px] uppercase tracking-widest text-muted hover:text-clay transition-colors">Chính Sách</a>
-      <a href="#" class="text-[11px] uppercase tracking-widest text-muted hover:text-clay transition-colors">Vận Chuyển</a>
-      <a href="https://zalo.me/emeleejewelry" class="text-[11px] uppercase tracking-widest text-muted hover:text-clay transition-colors">Liên Hệ Zalo</a>
+
+    <!-- Bottom bar -->
+    <div class="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center gap-3">
+      <p class="text-[10px] uppercase tracking-[0.2em] text-white/30">© 2026 Emelee Atelier. All Rights Reserved.</p>
+      <div class="flex gap-6">
+        <a href="#" class="text-[10px] uppercase tracking-widest text-white/30 hover:text-white/60 transition-colors">Chính Sách</a>
+        <a href="#" class="text-[10px] uppercase tracking-widest text-white/30 hover:text-white/60 transition-colors">Vận Chuyển</a>
+        <a href="https://zalo.me/emeleejewelry" target="_blank" class="text-[10px] uppercase tracking-widest text-white/30 hover:text-white/60 transition-colors">Zalo</a>
+      </div>
     </div>
   </div>
 </footer>
