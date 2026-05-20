@@ -2,9 +2,11 @@
 
 Bộ scripts tự động chuyển workflow AIKING (B2B/Tech) sang Emelee Moissanite (B2C trang sức VN) trên N8N.
 
-## Pipeline 3 bước
+## Pipeline 4 bước
 
 ```
+[0] Test-EmeleeConfig.ps1  → verify config trước khi chạy
+
 ┌──────────────────────┐   ┌──────────────────────┐   ┌──────────────────────┐
 │ n8n-workflows-        │   │ n8n-workflows-       │   │ n8n-workflows-       │
 │ original/             │ → │ emelee/              │ → │ emelee-final/        │
@@ -16,6 +18,33 @@ Bộ scripts tự động chuyển workflow AIKING (B2B/Tech) sang Emelee Moissa
 ```
 
 Sau đó: paste **TikTok branch** snippet vào Publisher Agent → import → chạy.
+Import thêm **TikTok-Token-Refresh** workflow để tự gia hạn token mỗi 23h.
+
+---
+
+## Script 0 — `Test-EmeleeConfig.ps1` (Pre-flight check)
+
+**Làm gì**: Verify config.json + test live connectivity (FB Graph, IG Graph, ImgBB, TikTok). Chạy trước khi `Map-EmeleeCredentials.ps1` để tránh import workflow với token sai.
+
+**Dùng**:
+```powershell
+.\Test-EmeleeConfig.ps1                   # Test tất cả
+.\Test-EmeleeConfig.ps1 -SkipPaid         # Bỏ qua test gọi API thật (chỉ check format)
+.\Test-EmeleeConfig.ps1 -SendTelegramTest # Gửi test message Telegram (cần env TELEGRAM_BOT_TOKEN)
+```
+
+**Output**: Console + `test-report.txt`. Exit code 0 = OK, 1 = có fail.
+
+**13 checks**:
+1. config.json exists & valid JSON
+2. Telegram chat_id filled
+3. Facebook config + Page accessible (via Graph API)
+4. Instagram Business linked + accessible
+5. ImgBB API key + reachable
+6. Google Sheet ID format
+7-11. 5 Drive file/folder IDs format
+12. N8N workflow IDs (lượt 2)
+13. TikTok access token (optional, từ env)
 
 ---
 
@@ -82,6 +111,27 @@ Copy-Item config.template.json config.json
 **Làm gì**: 3 nodes thay node LinkedIn cũ trong Publisher Agent, dùng TikTok Open API Photo Mode.
 
 Chi tiết setup từ A → Z (đăng ký TikTok Developer, lấy OAuth token, tạo credential N8N, paste nodes, connect): xem [templates/README.md](templates/README.md).
+
+---
+
+## TikTok Token Refresh Workflow — `templates/n8n-workflows-extra/TikTok-Token-Refresh.json`
+
+Workflow N8N rời chạy cron 23h/lần tự động gia hạn TikTok access token (hết hạn 24h). Update credential qua N8N REST API + báo cáo Telegram.
+
+Setup chi tiết: xem [templates/n8n-workflows-extra/README.md](templates/n8n-workflows-extra/README.md).
+
+---
+
+## Sheet Template — `templates/sheet-template/`
+
+5 file CSV ứng với 5 tab của Google Sheet "Emelee Marketing Log":
+- `01-Sheet research.csv` — log research requests
+- `02-Sheet content.csv` — log content generated (+ cột SKU + Cấp phễu)
+- `03-Sheet creative.csv` — log ảnh creative
+- `04-Sheet publisher.csv` — log đã đăng (+ cột CTA Type)
+- `05-Sheet analytics.csv` — log metrics 24h (+ Engagement Score, Phân loại, Hook used)
+
+Setup: xem [templates/sheet-template/README.md](templates/sheet-template/README.md).
 
 ---
 

@@ -1,0 +1,2 @@
+ID Yêu cầu,Thời gian,Nội dung yêu cầu gốc từ Telegram,Chủ đề,SKU,Agent thực thi,Thông tin trích xuất,FaceBook,Instagram,TikTok,Trạng thái
+REQ-1003,20/05/2026 16:10,viết bài SRT tự thưởng,Tự thưởng SRT,SRT,creative,(JSON prompt 3 platform từ Creative Agent),https://drive.google.com/uc?id=XXX_fb_image,https://drive.google.com/uc?id=XXX_ig_image,https://drive.google.com/uc?id=XXX_tt_image,Hoàn thành

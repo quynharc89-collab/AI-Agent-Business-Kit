@@ -1,7 +1,7 @@
-# Emelee AIKING — 4 SKILL Files
+# Emelee AIKING — 5 SKILL Files
 
-4 file system prompt cho hệ multi-agent N8N (AIKING) đã được Emelee hoá.
-Mỗi file thay thế file gốc trong workflow `Workflow AI AIGent`.
+5 file system prompt cho hệ multi-agent N8N (AIKING) đã được Emelee hoá.
+Mỗi file thay thế file gốc trong workflow `Workflow AI AIGent` (Analytics SKILL là file mới — AIKING gốc không có file SKILL riêng cho Analytics).
 
 ## Mapping file → workflow
 
@@ -11,6 +11,7 @@ Mỗi file thay thế file gốc trong workflow `Workflow AI AIGent`.
 | `research_v2.0.md` | `research_v2.0.md` (Drive ID `1l6FTCpnackF_1Usz7OArwOFcg1VGtI52`) | Research Agent |
 | `content_v2.0.md` | `content_v2.0.md` (Drive ID `1rxcVjf1kAsJybYP17duuI3RWosb0iq1_`) | Content Agent |
 | `creative_v2.0.md` | `creative_v2.0.md` (Drive ID `1PM5i6PVcGhtAKHPTiHF5_URFsBI8D01-`) | Creative Agent |
+| `analytics_v2.0.md` | **(MỚI — AIKING gốc dùng inline prompt)** | Analytics Agent — load qua Drive node tương tự 4 file trên |
 
 ## Cách triển khai
 
