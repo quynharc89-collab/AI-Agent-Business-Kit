@@ -1,0 +1,110 @@
+{
+  "name": "TikTok Publisher Branch (snippet)",
+  "description": "3 nodes thay the node LinkedIn cu trong Publisher Agent. Copy-paste vao N8N (Ctrl+V) sau khi xoa node 'Create a post' cu.",
+  "_setup_notes": [
+    "1. Tao credential moi trong N8N: Settings -> Credentials -> Add 'Header Auth'",
+    "   Header Name: Authorization",
+    "   Header Value: Bearer {TIKTOK_ACCESS_TOKEN}",
+    "   Lay access token tu: https://developers.tiktok.com/ -> Your App -> User Access Token (OAuth scope: video.publish + photo.publish)",
+    "2. Trong cac node duoi, replace TIKTOK_HEADER_AUTH_CRED_ID bang credential ID moi tao",
+    "3. Connect: 'Telegram - Doi duyet2' (approval gate) -> 'TikTok Init Post' -> 'Wait Process' -> 'TikTok Check Status' -> 'Cap nhat Sheet Analytics4'"
+  ],
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://open.tiktokapis.com/v2/post/publish/content/init/",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json; charset=UTF-8"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"post_info\": {\n    \"title\": {{ JSON.stringify($('Code in JavaScript').item.json.content_tiktok.substring(0, 150)) }},\n    \"description\": {{ JSON.stringify($('Code in JavaScript').item.json.content_tiktok) }},\n    \"disable_comment\": false,\n    \"privacy_level\": \"PUBLIC_TO_EVERYONE\",\n    \"auto_add_music\": true\n  },\n  \"source_info\": {\n    \"source\": \"PULL_FROM_URL\",\n    \"photo_cover_index\": 0,\n    \"photo_images\": [\n      {{ JSON.stringify($('Code in JavaScript').item.json.img_tiktok) }}\n    ]\n  },\n  \"post_mode\": \"DIRECT_POST\",\n  \"media_type\": \"PHOTO\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [1568, -192],
+      "id": "tt-init-emelee-001",
+      "name": "TikTok Init Post",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "TIKTOK_HEADER_AUTH_CRED_ID",
+          "name": "TikTok Open API"
+        }
+      },
+      "notes": "PULL_FROM_URL: TikTok server fetch anh tu URL Google Drive (img_tiktok). URL phai public, jpeg/png, <= 20MB, 200x200 - 10000x10000. Response: data.publish_id"
+    },
+    {
+      "parameters": {
+        "amount": 8,
+        "unit": "seconds"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [1792, -192],
+      "id": "tt-wait-emelee-001",
+      "name": "TikTok Wait Process",
+      "webhookId": "tt-wait-webhook-emelee",
+      "notes": "TikTok can ~5-10s de process anh sau khi init. Doi 8s truoc khi check status."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://open.tiktokapis.com/v2/post/publish/status/fetch/",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json; charset=UTF-8"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"publish_id\": {{ JSON.stringify($('TikTok Init Post').item.json.data.publish_id) }}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [2016, -192],
+      "id": "tt-status-emelee-001",
+      "name": "TikTok Check Status",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "TIKTOK_HEADER_AUTH_CRED_ID",
+          "name": "TikTok Open API"
+        }
+      },
+      "notes": "Response: data.status = PROCESSING / PUBLISH_COMPLETE / FAILED. Neu PROCESSING, them If node + loop wait. Neu PUBLISH_COMPLETE: data.publicaly_available_post_id."
+    }
+  ],
+  "connections": {
+    "TikTok Init Post": {
+      "main": [[ { "node": "TikTok Wait Process", "type": "main", "index": 0 } ]]
+    },
+    "TikTok Wait Process": {
+      "main": [[ { "node": "TikTok Check Status", "type": "main", "index": 0 } ]]
+    },
+    "TikTok Check Status": {
+      "main": [[ { "node": "Cap nhat Sheet Analytics4", "type": "main", "index": 0 } ]]
+    }
+  },
+  "sheet_logging_expression_changes": {
+    "_note": "Trong node 'Cap nhat Sheet Analytics4' va 'Cap nhat Sheet Analytics5', column 'TikTok' phai update expression:",
+    "old_value": "=https://www.linkedin.com/feed/update/{{ $json.urn }}",
+    "new_value": "=https://www.tiktok.com/@YOUR_USERNAME/video/{{ $('TikTok Check Status').item.json.data.publicaly_available_post_id }}",
+    "fallback_when_processing": "={{ $('TikTok Check Status').item.json.data.status === 'PUBLISH_COMPLETE' ? ('https://www.tiktok.com/@YOUR_USERNAME/video/' + $('TikTok Check Status').item.json.data.publicaly_available_post_id) : ('PROCESSING - publish_id: ' + $('TikTok Init Post').item.json.data.publish_id) }}"
+  }
+}
