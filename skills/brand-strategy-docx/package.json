@@ -1,0 +1,13 @@
+{
+  "name": "brand-strategy-docx",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Generate personal-brand strategy .docx (industry preset + 80-topic content plan)",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "docx": "^9.0.2"
+  }
+}

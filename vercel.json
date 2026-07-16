@@ -1,0 +1,9 @@
+{
+  "functions": {
+    "api/*.js": { "maxDuration": 300 }
+  },
+  "rewrites": [
+    { "source": "/", "destination": "/brand-strategy-assistant/public/index.html" },
+    { "source": "/:asset(style.css|app.js|buy.html|admin.html)", "destination": "/brand-strategy-assistant/public/:asset" }
+  ]
+}

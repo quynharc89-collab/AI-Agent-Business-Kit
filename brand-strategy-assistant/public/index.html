@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Trợ lý xây Chiến Lược Thương Hiệu</title>
+<!-- App name: no "Cá Nhân" per founder request 7/2026 -->
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <h1>Trợ lý xây Chiến Lược Thương Hiệu</h1>
+      <div class="steps" id="steps-bar" style="display:none">
+        <div class="step" data-step="1"><span>1</span>Thông tin</div>
+        <div class="step" data-step="2"><span>2</span>Tệp khách hàng</div>
+        <div class="step" data-step="3"><span>3</span>Xem lại</div>
+        <div class="step" data-step="4"><span>4</span>Nhận file &amp; sửa</div>
+      </div>
+      <div id="account-bar" class="hint" style="display:none"></div>
+    </header>
+
+    <main id="stage-login" class="stage active">
+      <h2>Đăng nhập</h2>
+      <p class="hint">Dùng email và số điện thoại bạn đã đăng ký khi mua gói. Chưa có tài khoản? <a href="/buy.html">Mua gói tại đây</a>.</p>
+      <form id="form-login">
+        <label>Email (tên đăng nhập)
+          <input type="email" name="email" required placeholder="ban@email.com" />
+        </label>
+        <label>Số điện thoại (mật khẩu)
+          <input type="password" name="phone" required placeholder="0912345678" />
+        </label>
+        <button type="submit" class="btn-primary">Đăng nhập</button>
+      </form>
+      <div id="resume-box" class="hidden" style="margin-top:18px"></div>
+    </main>
+
+    <main id="stage-1" class="stage">
+      <h2>Bước 1 — Thông tin cơ bản về thương hiệu của bạn</h2>
+      <p class="hint">Chỉ điền những gì bạn biết chắc — đừng lo, các bước sau AI sẽ giúp bạn nghiên cứu sâu hơn.</p>
+      <form id="form-stage1">
+        <label>Tên kênh / thương hiệu cá nhân
+          <input type="text" name="brandName" required placeholder="VD: Bella Jewelry" />
+        </label>
+        <label>Định vị (1 câu)
+          <input type="text" name="positioning" required placeholder="VD: Trang sức bạc thủ công cho phái đẹp hiện đại" />
+        </label>
+        <label>Nghề nghiệp / background thật
+          <input type="text" name="background" placeholder="VD: thợ kim hoàn 6 năm kinh nghiệm" />
+        </label>
+
+        <fieldset>
+          <legend>Sản phẩm / dịch vụ</legend>
+          <div class="product-row">
+            <span>Cơ bản</span>
+            <input type="text" name="entryName" required placeholder="Tên sản phẩm" />
+            <input type="text" name="entryPrice" required placeholder="Giá (VD: 199.000đ)" />
+          </div>
+          <div class="product-row">
+            <span>Tiêu chuẩn</span>
+            <input type="text" name="midName" required placeholder="Tên sản phẩm" />
+            <input type="text" name="midPrice" required placeholder="Giá" />
+          </div>
+          <div class="product-row">
+            <span>Cao cấp</span>
+            <input type="text" name="premiumName" required placeholder="Tên sản phẩm" />
+            <input type="text" name="premiumPrice" required placeholder="Giá" />
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Tư liệu thương hiệu (khuyến khích — AI viết sát thương hiệu của bạn hơn hẳn)</legend>
+          <p class="hint" style="margin-top:0">Dán link website/fanpage/trang sản phẩm và đính kèm tài liệu (profile thương hiệu, bảng giá...). AI sẽ đọc trước khi viết.</p>
+          <div id="links-list">
+            <div class="row link-row">
+              <input type="url" class="material-link" placeholder="https://website-cua-ban.com" />
+            </div>
+          </div>
+          <button type="button" class="btn-link" id="btn-add-link">+ Thêm link (sản phẩm, fanpage, bài viết...)</button>
+          <label style="margin-top:10px">File tài liệu (PDF hoặc TXT, tối đa 3 file / 3MB)
+            <input type="file" id="material-files" accept=".pdf,.txt" multiple />
+          </label>
+        </fieldset>
+
+        <label>Tone thương hiệu
+          <select name="tone">
+            <option>Chuyên gia</option>
+            <option>Bạn bè</option>
+            <option>Năng lượng</option>
+            <option selected>Kết hợp</option>
+          </select>
+        </label>
+        <label>Hashtag thương hiệu (nếu có)
+          <input type="text" name="hashtag" placeholder="#TenThuongHieu" />
+        </label>
+        <label>Lĩnh vực / ngành cụ thể
+          <input type="text" name="industry" required placeholder="VD: Trang sức, thời trang, làm đẹp" />
+        </label>
+
+        <button type="submit" class="btn-primary">Tiếp tục — Đề xuất tệp khách hàng</button>
+      </form>
+    </main>
+
+    <main id="stage-2" class="stage">
+      <h2>Bước 2 — Chọn tệp khách hàng mục tiêu</h2>
+      <p class="hint">AI đã đề xuất 3 tệp khách hàng khác biệt dựa trên thông tin bước 1. Chọn 1 tệp phù hợp nhất, hoặc mô tả tệp khách hàng riêng của bạn.</p>
+      <div id="segment-cards" class="segment-cards"></div>
+      <div class="custom-mix">
+        <label>Hoặc mô tả tệp khách hàng riêng (custom mix)
+          <textarea id="custom-segment-note" rows="3" placeholder="VD: kết hợp nhóm A (mua tặng) và nhóm B (mua cho bản thân)"></textarea>
+        </label>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn-secondary" id="btn-back-to-1">Quay lại</button>
+        <button type="button" class="btn-primary" id="btn-to-stage3">Tiếp tục — Nghiên cứu sâu</button>
+      </div>
+    </main>
+
+    <main id="stage-3" class="stage">
+      <h2>Bước 3 — Xem lại hồ sơ khách hàng &amp; tạo file</h2>
+      <p class="hint" id="layer2-summary"></p>
+
+      <fieldset>
+        <legend>Chân dung khách hàng (audience)</legend>
+        <label>Giới tính / độ tuổi / nghề nghiệp <input type="text" id="audience-demo" /></label>
+        <label>Thu nhập / nghề nghiệp <input type="text" id="audience-income" /></label>
+        <label>Mối quan tâm chính <input type="text" id="audience-interest" /></label>
+        <label>Mua cho ai <input type="text" id="audience-buysFor" /></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>4 rào cản phổ biến nhất</legend>
+        <div id="barriers-list" class="editable-list"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>3 nỗi đau sâu nhất</legend>
+        <div id="pains-list" class="editable-list"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Câu khách hàng thật hay nói (5-10 câu)</legend>
+        <div id="quotes-list" class="editable-list"></div>
+        <button type="button" class="btn-link" id="btn-add-quote">+ Thêm câu quote</button>
+      </fieldset>
+
+      <fieldset>
+        <legend>Khung Giải Pháp Giá Trị — nối nỗi đau của khách với sản phẩm của bạn</legend>
+        <p class="hint" style="margin-top:0">AI đã lập bản đồ: khách cần gì ↔ sản phẩm của bạn giải quyết thế nào. Đây là xương sống để 80 chủ đề bán hàng thuyết phục — hãy đọc kỹ và sửa nếu chưa đúng thực tế sản phẩm.</p>
+        <p class="vpc-label">🎯 Việc khách cần làm / đạt được</p>
+        <div id="vpc-jobs" class="editable-list"></div>
+        <p class="vpc-label">😊 Lợi ích khách mong muốn</p>
+        <div id="vpc-gains" class="editable-list"></div>
+        <p class="vpc-label">📈 Sản phẩm của bạn tạo lợi ích đó thế nào (Gain Creators)</p>
+        <div id="vpc-gaincreators" class="editable-list"></div>
+        <p class="vpc-label">💊 Sản phẩm của bạn hoá giải khó khăn thế nào (Pain Relievers)</p>
+        <div id="vpc-painrelievers" class="editable-list"></div>
+      </fieldset>
+
+      <div class="actions">
+        <button type="button" class="btn-secondary" id="btn-back-to-2">Chọn lại tệp khách hàng</button>
+        <button type="button" class="btn-secondary" id="btn-deepen">Làm sâu hơn</button>
+        <button type="button" class="btn-primary" id="btn-generate">Tạo file .docx (dùng 1 lượt)</button>
+      </div>
+    </main>
+
+    <main id="stage-4" class="stage">
+      <h2>Bước 4 — Nhận file &amp; chỉnh sửa</h2>
+      <fieldset>
+        <legend>File chiến lược của bạn</legend>
+        <p id="file-info" class="hint"></p>
+        <div class="actions">
+          <button type="button" class="btn-primary" id="btn-download">⬇ Tải file .docx</button>
+        </div>
+      </fieldset>
+
+      <fieldset id="revise-box">
+        <legend>Chưa ưng chỗ nào? Gửi phản hồi để AI sửa (<span id="rev-remaining">3</span>/3 lượt còn lại)</legend>
+
+        <div class="guidance">
+          <strong>📝 Cách góp ý để bản sửa đúng ý bạn nhất:</strong>
+          <ul>
+            <li><em>Chỉ rõ chỗ sai + nói điều bạn muốn thay thế.</em><br/>❌ "Không hay, viết lại đi" → ✅ "Tuyến B đang xưng <em>mình</em>, nhưng thương hiệu tôi luôn xưng <em>chị</em> với khách — đổi cách xưng hô toàn bộ"</li>
+            <li><em>Giọng văn:</em> ✅ "Giọng đang trang trọng quá, tôi muốn kiểu chị em tâm sự, có thể chêm 1-2 câu đùa nhẹ"</li>
+            <li><em>Sai thông tin sản phẩm:</em> ✅ "Bộ Moissanite của tôi giá 1.990k chứ không phải 2 triệu, và có bảo hành đánh bóng trọn đời — nhắc vào các chủ đề bán hàng"</li>
+            <li><em>Hook nhạt:</em> ✅ "Các hook Tuyến A đang chung chung, tôi muốn hook nào cũng có con số hoặc tình huống cụ thể"</li>
+            <li><em>Lưu ý:</em> phần bạn KHÔNG tick sẽ được giữ nguyên 100%. Mỗi lần gửi = 1 lượt sửa, nên gom hết góp ý vào một lần.</li>
+          </ul>
+        </div>
+
+        <p style="font-weight:600;font-size:13px;margin-bottom:6px">Phần cần sửa (tick ít nhất 1):</p>
+        <div class="scope-grid">
+          <label class="scope-item"><input type="checkbox" value="sectionOne" /> Phần 1 — Chân dung / Rào cản / Kỹ thuật giá</label>
+          <label class="scope-item"><input type="checkbox" value="A" /> Tuyến A — Thực chiến/Insight (20)</label>
+          <label class="scope-item"><input type="checkbox" value="B" /> Tuyến B — Phá rào cản (22)</label>
+          <label class="scope-item"><input type="checkbox" value="C" /> Tuyến C — Kiến thức + Trust (18)</label>
+          <label class="scope-item"><input type="checkbox" value="D" /> Tuyến D — Chuyển đổi mềm (12)</label>
+          <label class="scope-item"><input type="checkbox" value="E" /> Tuyến E — Chuyện cá nhân (8)</label>
+        </div>
+
+        <label>Góp ý của bạn (càng cụ thể, bản sửa càng đúng ý)
+          <textarea id="feedback-text" rows="5" placeholder="VD: Tuyến B đang xưng 'mình' nhưng thương hiệu tôi luôn xưng 'chị'. Ngoài ra hook các chủ đề 3, 7 đang na ná nhau..."></textarea>
+        </label>
+        <div class="actions">
+          <button type="button" class="btn-primary" id="btn-revise">Gửi phản hồi &amp; nhận bản sửa (dùng 1 lượt sửa)</button>
+        </div>
+      </fieldset>
+
+      <div id="out-of-revisions" class="hidden">
+        <p class="hint">Bạn đã dùng hết 3 lượt sửa cho file này. Muốn tạo bản mới? <a id="buy-more-link" href="/buy.html?kind=topup">Mua thêm lượt (99.000đ)</a> — mỗi lượt gồm 1 lần tạo file mới + 3 lần sửa.</p>
+      </div>
+    </main>
+
+    <div id="loading-overlay" class="loading-overlay hidden">
+      <div class="spinner"></div>
+      <p id="loading-text">Đang xử lý...</p>
+    </div>
+
+    <div id="result-banner" class="result-banner hidden"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

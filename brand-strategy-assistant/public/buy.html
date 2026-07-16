@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mua gói — Trợ lý Chiến Lược Thương Hiệu</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <h1>Mua gói Trợ lý Chiến Lược Thương Hiệu</h1>
+    </header>
+
+    <main class="stage active" id="buy-form-view">
+      <h2 id="buy-title">Gói 99.000đ</h2>
+      <p class="hint">Mỗi gói gồm <strong>1 lần tạo file chiến lược 80 chủ đề (kèm kịch bản + caption) + 3 lần chỉnh sửa</strong>. Mua thêm lượt cũng cùng giá 99.000đ. Tài khoản kích hoạt tự động trong ~1 phút sau khi chuyển khoản.</p>
+      <form id="buy-form">
+        <label>Họ tên
+          <input type="text" name="name" required placeholder="VD: Quỳnh Bella" />
+        </label>
+        <label>Email (dùng làm tên đăng nhập)
+          <input type="email" name="email" required placeholder="ban@email.com" />
+        </label>
+        <label>Số điện thoại (dùng làm mật khẩu đăng nhập)
+          <input type="text" name="phone" required placeholder="0912345678" />
+        </label>
+        <button type="submit" class="btn-primary">Tạo mã thanh toán — 99.000đ</button>
+      </form>
+      <p class="hint" style="margin-top:16px">💎 Muốn trọn bộ? <strong>Combo 450.000đ</strong> gồm App Bella (tạo ảnh/video sản phẩm) + Trợ lý ChatGPT viết kịch bản + gói này — xem tại <a href="https://bella-gallery.vercel.app/" target="_blank" rel="noopener">bella-gallery.vercel.app</a>.</p>
+    </main>
+
+    <main class="stage" id="buy-qr-view">
+      <h2>Quét QR để thanh toán</h2>
+      <p class="hint">Chuyển khoản <strong id="qr-amount"></strong> với đúng nội dung <strong id="qr-code"></strong>. Hệ thống tự xác nhận trong ~1 phút sau khi tiền vào — <strong>đừng đóng trang này</strong>.</p>
+      <div style="text-align:center">
+        <img id="qr-img" src="" alt="QR thanh toán" style="max-width:280px;border:1px solid #d9dee6;border-radius:8px" />
+        <p class="hint" id="qr-bank-info"></p>
+        <p class="hint" style="font-style:italic">Đang chờ thanh toán... (tự kiểm tra mỗi 3 giây)</p>
+      </div>
+    </main>
+
+    <main class="stage" id="buy-success-view">
+      <h2>🎉 Thanh toán thành công!</h2>
+      <fieldset>
+        <legend>Thông tin đăng nhập của bạn</legend>
+        <p>Tên đăng nhập: <strong id="success-email"></strong></p>
+        <p>Mật khẩu: <strong>chính là số điện thoại bạn vừa đăng ký</strong></p>
+        <p class="hint">Lưu lại thông tin này. Bạn có 1 lần tạo file + 3 lần chỉnh sửa.</p>
+      </fieldset>
+      <div class="actions">
+        <a href="/" class="btn-primary" style="text-decoration:none;display:inline-block">Bắt đầu tạo chiến lược ngay →</a>
+      </div>
+    </main>
+
+    <div id="result-banner" class="result-banner hidden"></div>
+  </div>
+
+<script>
+(function () {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const banner = $('result-banner');
+  function showBanner(msg, type) {
+    banner.textContent = msg;
+    banner.className = 'result-banner ' + type;
+    setTimeout(() => banner.classList.add('hidden'), 6000);
+  }
+  function show(viewId) {
+    ['buy-form-view', 'buy-qr-view', 'buy-success-view'].forEach((id) => {
+      $(id).classList.toggle('active', id === viewId);
+    });
+  }
+
+  // Deep-link "mua thêm": /buy.html?kind=topup&email=... (same 99k price;
+  // paying with an existing email just adds +1 credit)
+  const params = new URLSearchParams(location.search);
+  if (params.get('kind') === 'topup') {
+    $('buy-title').textContent = 'Mua thêm lượt — 99.000đ';
+  }
+  if (params.get('email')) document.querySelector('input[name="email"]').value = params.get('email');
+
+  let pollTimer = null;
+
+  $('buy-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const body = {
+      name: fd.get('name').trim(),
+      email: fd.get('email').trim(),
+      phone: fd.get('phone').trim(),
+    };
+    try {
+      const res = await fetch('/api/order', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.message || 'Không tạo được đơn.');
+
+      $('qr-img').src = data.qrUrl;
+      $('qr-amount').textContent = data.amount.toLocaleString('vi-VN') + 'đ';
+      $('qr-code').textContent = data.code;
+      $('qr-bank-info').textContent = `Ngân hàng ${data.bank} — STK ${data.account} — Nội dung CK: ${data.code}`;
+      show('buy-qr-view');
+
+      pollTimer = setInterval(async () => {
+        try {
+          const r = await fetch('/api/check-payment?code=' + encodeURIComponent(data.code));
+          const d = await r.json();
+          if (d.status === 'paid') {
+            clearInterval(pollTimer);
+            $('success-email').textContent = body.email.toLowerCase();
+            show('buy-success-view');
+          }
+        } catch (err) { /* keep polling */ }
+      }, 3000);
+    } catch (err) {
+      showBanner(err.message, 'error');
+    }
+  });
+})();
+</script>
+</body>
+</html>
