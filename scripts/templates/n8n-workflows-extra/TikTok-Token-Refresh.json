@@ -1,0 +1,132 @@
+{
+  "name": "TikTok Token Auto-Refresh",
+  "_description": "Workflow N8N rieng chay cron 23h/lan de gia han TikTok access_token (het han 24h). Cap nhat credential 'TikTok Open API' tu dong qua N8N REST API.",
+  "_setup": [
+    "1. Tao credential 'TikTok OAuth Config' kieu HTTP Header Auth co bien moi truong:",
+    "   - TIKTOK_CLIENT_KEY (lay tu TikTok Developer App)",
+    "   - TIKTOK_CLIENT_SECRET",
+    "   - TIKTOK_REFRESH_TOKEN (lay tu OAuth flow lan dau)",
+    "2. Tao N8N API key: Settings -> API -> Create Key. Luu vao bien moi truong N8N_API_KEY.",
+    "3. Trong node 'Update TikTok Credential', dien:",
+    "   - URL: https://YOUR_N8N_HOST/api/v1/credentials/{TIKTOK_CRED_ID}",
+    "   - TIKTOK_CRED_ID = id cua credential 'TikTok Open API' (xem URL credential)",
+    "4. Active workflow → cron tu dong chay 23h sau khi save."
+  ],
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 23
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [-400, 200],
+      "id": "tt-refresh-cron",
+      "name": "Every 23 hours"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://open.tiktokapis.com/v2/oauth/token/",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Content-Type", "value": "application/x-www-form-urlencoded" }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            { "name": "client_key",    "value": "={{ $env.TIKTOK_CLIENT_KEY }}" },
+            { "name": "client_secret", "value": "={{ $env.TIKTOK_CLIENT_SECRET }}" },
+            { "name": "grant_type",    "value": "refresh_token" },
+            { "name": "refresh_token", "value": "={{ $env.TIKTOK_REFRESH_TOKEN }}" }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [-200, 200],
+      "id": "tt-refresh-call",
+      "name": "Refresh TikTok Token",
+      "notes": "POST oauth/token voi grant_type=refresh_token. Response: { access_token, expires_in, refresh_token (rotated) }. LUU Y: TikTok rotate refresh_token moi lan refresh — phai luu refresh_token moi vao env de lan sau dung."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Validate response\nconst r = $input.first().json;\nif (!r.access_token) {\n  throw new Error('TikTok refresh failed: ' + JSON.stringify(r));\n}\n\nconst newToken = r.access_token;\nconst expiresIn = r.expires_in || 86400;\nconst newRefreshToken = r.refresh_token;\n\n// Prepare payload de update N8N credential\n// Credential 'Header Auth' co structure: { name, type, data: { name: 'Authorization', value: 'Bearer XXX' } }\nreturn {\n  json: {\n    new_access_token:  newToken,\n    new_refresh_token: newRefreshToken,\n    expires_in:        expiresIn,\n    expires_at:        new Date(Date.now() + (expiresIn * 1000)).toISOString(),\n    bearer_header:     'Bearer ' + newToken,\n    refreshed_at:      new Date().toISOString()\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [0, 200],
+      "id": "tt-refresh-parse",
+      "name": "Parse & Validate"
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://YOUR_N8N_HOST/api/v1/credentials/TIKTOK_CRED_ID",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "X-N8N-API-KEY", "value": "={{ $env.N8N_API_KEY }}" },
+            { "name": "Content-Type",  "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"name\": \"TikTok Open API\",\n  \"data\": {\n    \"name\": \"Authorization\",\n    \"value\": {{ JSON.stringify($json.bearer_header) }}\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [200, 200],
+      "id": "tt-refresh-update",
+      "name": "Update TikTok Credential",
+      "notes": "PATCH N8N credential voi token moi. PHAI thay 'YOUR_N8N_HOST' va 'TIKTOK_CRED_ID' ID that. Yeu cau N8N API key trong env N8N_API_KEY."
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+        "text": "=TikTok token da duoc gia han\nExpires at: {{ $('Parse & Validate').item.json.expires_at }}\nNew refresh_token (luu lai!): {{ $('Parse & Validate').item.json.new_refresh_token.substring(0,30) }}...",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [400, 200],
+      "id": "tt-refresh-notify",
+      "name": "Notify Success",
+      "notes": "Goi message ve Telegram chu shop xac nhan. LUU Y: refresh_token rotate moi lan, phai update vao env TIKTOK_REFRESH_TOKEN sau message nay (manual hoac qua workflow phu).",
+      "credentials": {
+        "telegramApi": {
+          "id": "REPLACE_TELEGRAM_CRED_ID",
+          "name": "Telegram Emelee"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Every 23 hours": {
+      "main": [[ { "node": "Refresh TikTok Token", "type": "main", "index": 0 } ]]
+    },
+    "Refresh TikTok Token": {
+      "main": [[ { "node": "Parse & Validate", "type": "main", "index": 0 } ]]
+    },
+    "Parse & Validate": {
+      "main": [[ { "node": "Update TikTok Credential", "type": "main", "index": 0 } ]]
+    },
+    "Update TikTok Credential": {
+      "main": [[ { "node": "Notify Success", "type": "main", "index": 0 } ]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

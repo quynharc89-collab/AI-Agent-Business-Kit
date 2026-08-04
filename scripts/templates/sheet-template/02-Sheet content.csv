@@ -1,0 +1,3 @@
+ID Yêu cầu,Thời gian,Nội dung yêu cầu gốc từ Telegram,Chủ đề,SKU,Cấp phễu,Agent thực thi,Thông tin trích xuất,Content FB,Content Tiktok,Content Instagram,Sample post,Trạng thái
+REQ-1003,20/05/2026 16:00,viết bài SRT tự thưởng,Tự thưởng SRT,SRT,Cấp 3,content,N/A,(caption FB chi tiết storytelling 200 từ),(caption TikTok 80 ký tự + kịch bản),(caption IG 100 từ + 10 hashtag),None,Hoàn thành
+REQ-1004,20/05/2026 16:45,viết theo bài mẫu này [paste],Mẫu cộng đồng,SRB,Cấp 3,content,N/A,(caption FB),(caption TikTok),(caption IG),(text mẫu user paste),Hoàn thành

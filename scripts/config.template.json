@@ -1,0 +1,119 @@
+{
+  "_comment": "Emelee AIKING credential & ID mapping. Copy this to config.json, dien gia tri 'to' moi, roi chay Map-EmeleeCredentials.ps1. Field nao 'to' bo trong se duoc SKIP (khong replace).",
+  "_workflow": "1. Setup FB/IG/Telegram/Drive/Sheet → ghi gia tri vao day. 2. Chay script (lan 1). 3. Import 4 sub-workflows vao N8N → ghi N8N workflow IDs moi vao day. 4. Chay script (lan 2) → cap nhat Marketing Team Agent. 5. Import Marketing Team Agent.",
+
+  "telegram": {
+    "chat_id": {
+      "description": "Chat ID Telegram cua anh chu shop (Marketing Team, Publisher, Analytics dung)",
+      "from": "8743334949",
+      "to": ""
+    }
+  },
+
+  "facebook": {
+    "page_id": {
+      "description": "Facebook Page ID Emelee (tim trong FB Page → About → Page Transparency)",
+      "from": "935351229659755",
+      "to": ""
+    },
+    "page_access_token_publisher": {
+      "description": "FB Page Access Token cho Publisher Agent. Lay tu Graph API Explorer hoac FB Business System User. ENG_FROM: token cu (EAAkgVQC6Vew...PRb1edWEob7M) da bi LO trong file workflow goc va PHAI REVOKE. Tu config nay, dien token MOI cua Emelee vao 'to', va dien 32 ky tu DAU cua token cu vao 'from' de script tim va replace.",
+      "from": "PASTE_FIRST_50_CHARS_OF_OLD_TOKEN_HERE",
+      "to": ""
+    },
+    "page_access_token_analytics": {
+      "description": "FB Page Access Token cho Analytics Agent (read metrics). Tuong tu publisher token: token cu da bi lo, paste 50 ky tu dau cua token cu vao 'from'.",
+      "from": "PASTE_FIRST_50_CHARS_OF_OLD_TOKEN_HERE",
+      "to": ""
+    }
+  },
+
+  "instagram": {
+    "business_account_id": {
+      "description": "IG Business Account ID Emelee (lay tu Graph API: GET /me/accounts → instagram_business_account.id)",
+      "from": "17841473315702272",
+      "to": ""
+    },
+    "access_token_1": {
+      "description": "IG access token (dung trong node 'Tai anh va noi dung'). Token cu da bi LO trong workflow goc, paste 50 ky tu dau cua token cu vao 'from'.",
+      "from": "PASTE_FIRST_50_CHARS_OF_OLD_IG_TOKEN_1_HERE",
+      "to": ""
+    },
+    "access_token_2": {
+      "description": "IG access token (dung trong node 'Xuat ban bai viet'). Co the dung cung token_1.",
+      "from": "PASTE_FIRST_50_CHARS_OF_OLD_IG_TOKEN_2_HERE",
+      "to": ""
+    }
+  },
+
+  "imgbb": {
+    "api_key": {
+      "description": "ImgBB API key (free tier OK) — dung upload anh tam de IG fetch URL public. Dang ky: https://api.imgbb.com/. Key cu (ede3a8b09405856aeb7b621d22cc1492) da bi lo, nen tao key moi.",
+      "from": "ede3a8b09405856aeb7b621d22cc1492",
+      "to": ""
+    }
+  },
+
+  "google_sheet": {
+    "id": {
+      "description": "Google Sheet ID 'Emelee Marketing Log' (tao moi, co 5 tab: research/content/creative/publisher/analytics)",
+      "from": "1XhfkmrXhR-YqeaS7Mjtkuasv2oLQBJHjTz9tYc5pEP0",
+      "to": ""
+    }
+  },
+
+  "google_drive_skill_files": {
+    "orchestrator_md_id": {
+      "description": "Drive file ID cua orchestrator_v2.0.md (upload tu skills/emelee-aiking/)",
+      "from": "1RqOGOY3llPd498KxRKx6zxEIydNn8Jx9",
+      "to": ""
+    },
+    "research_md_id": {
+      "description": "Drive file ID cua research_v2.0.md",
+      "from": "1l6FTCpnackF_1Usz7OArwOFcg1VGtI52",
+      "to": ""
+    },
+    "content_md_id": {
+      "description": "Drive file ID cua content_v2.0.md",
+      "from": "1rxcVjf1kAsJybYP17duuI3RWosb0iq1_",
+      "to": ""
+    },
+    "creative_md_id": {
+      "description": "Drive file ID cua creative_v2.0.md",
+      "from": "1PM5i6PVcGhtAKHPTiHF5_URFsBI8D01-",
+      "to": ""
+    }
+  },
+
+  "google_drive_image_folder": {
+    "creative_output_folder_id": {
+      "description": "Drive folder ID noi Creative Agent luu anh AI generated",
+      "from": "1h-H1XdFa6z73JAP7RPtuRdgAAc4BTXxl",
+      "to": ""
+    }
+  },
+
+  "n8n_workflow_ids": {
+    "_note": "Cap nhat SAU khi import 4 sub-workflows vao N8N. Vao N8N → moi workflow → copy ID tu URL.",
+    "research_agent": {
+      "description": "Workflow ID cua Research Agent (reference tu Marketing Team Agent tool node)",
+      "from": "IdgTIPML31kIr9K5",
+      "to": ""
+    },
+    "content_agent": {
+      "description": "Workflow ID cua Content Agent",
+      "from": "ZpTBrynRpCfgyW6z",
+      "to": ""
+    },
+    "creative_agent": {
+      "description": "Workflow ID cua Creative Agent",
+      "from": "xya6JPc4TCIenmlQ",
+      "to": ""
+    },
+    "publisher_agent": {
+      "description": "Workflow ID cua Publisher Agent",
+      "from": "Q0acLcIy6mfeTkek",
+      "to": ""
+    }
+  }
+}
