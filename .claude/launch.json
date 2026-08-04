@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "output-viewer",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["C:\\claude_serve\\serve.js"],
+      "port": 3355
+    }
+  ]
+}
